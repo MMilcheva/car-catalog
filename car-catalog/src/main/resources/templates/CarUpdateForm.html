@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:import="org.thymeleaf.util.StringUtils">
+<head>
+    <meta charset="UTF-8">
+    <title>Updated Car</title>
+    <link href="../static/Styles.css" th:href="@{/Styles.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<form th:fragment="car-update-form" action="#" th:action="@{__${requestURI}__}" th:object="${carSaveRequest}"
+      method="post">
+
+    <br/>
+    <br/><br/>
+
+    <br/>
+    <br/><br/>
+
+    <input type="submit" value="Save"/>
+</form>
+
+</body>
+</html>

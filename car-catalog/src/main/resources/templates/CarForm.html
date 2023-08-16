@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Car form</title>
+    <link href="../static/Styles.css" th:href="@{/Styles.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<form th:fragment="car-form" action="#" th:action="@{__${requestURI}__}" th:object="${carSaveRequest}"
+      method="post">
+
+    <label th:text="#{car.label.vin}">VIN</label>
+    <br/>
+    <input type="text" th:field="*{vin}"/>
+    <label class="error" th:errors="*{vin}">VIN error placeholder</label>
+    <br/><br/>
+
+
+    <label th:text="#{car.label.model-name}">Model name</label>
+    <br/>
+    <select th:field="*{modelName}" id="dropDownList2">
+        <option value="0">select option</option>
+        <option th:each="model : ${models}" th:value="${model.modelName}"
+                th:text="${model.modelName}"></option>
+    </select>
+    <label class="error" th:errors="*{modelName}">Model error placeholder</label>
+    <br/><br/>
+
+    <label th:text="#{car.label.price}">Price</label>
+    <br/>
+    <input type="text" th:field="*{price}"/>
+    <label class="error" th:errors="*{price}">Price error placeholder</label>
+    <br/><br/>
+
+
+    <label th:text="#{car.label.fuelType}">Fuel type</label>
+    <br/>
+    <select th:field="*{fuelTypeName}" id="dropDownList">
+        <option value="0">select option</option>
+        <option th:each="fuelType : ${fuelTypes}" th:value="${fuelType.fuelTypeName}"
+                th:text="${fuelType.fuelTypeName}"></option>
+    </select>
+    <br/><br/>
+
+
+    <label th:text="#{car.label.transmissionType}">Transmission type</label>
+    <br/>
+    <select th:field="*{transmissionTypeName}" id="dropDownList1">
+        <option value="0">select option</option>
+        <option th:each="transmissionType : ${transmissionTypes}" th:value="${transmissionType.transmissionTypeName}"
+                th:text="${transmissionType.transmissionTypeName}"></option>
+    </select>
+
+    <br/><br/>
+
+    <label th:text="#{car.label.registrationDate}">Registration date</label>
+    <br/>
+    <input type="date" th:field="*{registrationDate}"/>
+    <label class="error" th:errors="*{registrationDate}">Registration date error placeholder</label>
+    <br/><br/>
+
+    <label th:text="#{car.label.remarks}">Remarks</label>
+    <br/>
+    <textarea id="remarks" name="remarks" rows="4" cols="50" maxlength="200"></textarea>
+    <br/>
+<!--    <input type="text" th:field="*{remarks}"/>-->
+    <label class="error" th:errors="*{remarks}">Remarks error placeholder</label>
+    <br/><br/>
+
+
+    <!--    <label for="notes">Notes:</label>
+        <br/>
+        <textarea id="notes" name="notes" rows="4" cols="50" maxlength="200"></textarea>
+        <br/><br/>
+
+      <input type="submit" value="Save"/>
+        <br/><br/>-->
+
+
+    <input type="submit" value="Save"/>
+    <br/><br/>
+</form>
+
+
+</body>
+</html>
