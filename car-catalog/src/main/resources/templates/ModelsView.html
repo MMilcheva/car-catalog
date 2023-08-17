@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Car models</title>
+    <title>Models</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -51,11 +51,11 @@
 <div class="container-fluid page-header mb-5 p-0" style="background-image: url('/img/carousel-bg-2.jpg');">
     <div class="container-fluid page-header-inner py-5">
         <div class="container text-center">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">Car models</h1>
+            <h1 class="display-3 text-white mb-3 animated slideInDown">Models</h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb justify-content-center text-uppercase">
                     <li class="breadcrumb-item"><a href="#" th:href="@{/}">Home</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page">Car Models</li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">Models</li>
                 </ol>
             </nav>
         </div>
@@ -74,7 +74,7 @@
 
 <form action="#" th:action="@{/models}" th:object="${modelFilterOptions}" method="get"
       style="display: flex; flex-wrap: wrap; justify-content: center;">
-    <label th:text="#{model.label.models}"
+    <label th:text="#{model.label.filter-options}"
            style="flex-basis: 100%; display: flex; justify-content: center; font-size: 1.7rem;">Filter options</label>
 
     <input type="text" placeholder="Model name" th:field="*{modelName}"
@@ -85,7 +85,7 @@
     <select th:field="*{sortBy}"
             style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;">
         <option value="">Sort by</option>
-        <option th:value="modelName">Car model name</option>
+        <option th:value="modelName">Model name</option>
         <option th:value="brandName">Brand name</option>
         <!--        <option th:value="isArchived">isArchived</option>-->
     </select>
@@ -97,17 +97,25 @@
         <option th:value="desc">Descending</option>
     </select>
 
-    <select th:if="${isAuthenticated && #strings.toString(session.admin) == 'admin'}" th:field="*{archived}"
-            style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;">
-        <option th:value="null">All</option>
-        <option th:value="1">Archived</option>
-        <option th:value="0">Active</option>
-    </select>
-
     <input type="submit" value="Search" style="flex-basis: 100%; margin-bottom: 1rem;"/>
 </form>
 
 <!-- Section-->
+
+<ul>
+    <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
+                                        href="#"
+                                        th:href="@{/brands/new}" th:text="#{navigation.create-brand}">Create a brand</a>
+    </h4>
+    <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
+                                        href="#"
+                                        th:href="@{/models/new}" th:text="#{navigation.create-model}">Create a model</a>
+    </h4>
+    <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
+                                        href="#"
+                                        th:href="@{/cars/new}" th:text="#{navigation.create-car}">Create a car</a>
+    </h4>
+</ul>
 
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
@@ -115,7 +123,7 @@
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>Car model name</th>
+                    <th>Model name</th>
                     <th>Brand name</th>
                 </tr>
                 </thead>

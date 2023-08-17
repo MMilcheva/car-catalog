@@ -73,6 +73,11 @@
 
 <!-- Section-->
 
+<h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
+                                    href="#"
+                                    th:href="@{brands/new}" th:text="#{navigation.create-brand}">Create a brand</a>
+</h4>
+
 
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">

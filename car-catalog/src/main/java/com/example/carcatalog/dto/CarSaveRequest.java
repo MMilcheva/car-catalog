@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -32,6 +33,8 @@ public class CarSaveRequest {
     @Size(min = 3, max = 15, message = "Fuel type has to be between 3 and 15 chars.")
     private String transmissionTypeName;
 
+
+    @DateTimeFormat(pattern = "dd-MMM-yyyy")
     @NotNull(message = "Date of registration cannot be empty")
     @PastOrPresent(message = "Date of registration cannot be in the future")
     private LocalDate registrationDate;
@@ -66,7 +69,6 @@ public class CarSaveRequest {
     public void setPrice(Double price) {
         this.price = price;
     }
-
 
     public LocalDate getRegistrationDate() {
         return registrationDate;

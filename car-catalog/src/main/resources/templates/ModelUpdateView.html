@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Update car model</title>
+    <title>Update model</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -55,8 +55,8 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb justify-content-center text-uppercase">
                     <li class="breadcrumb-item"><a href="#" th:href="@{/}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#" th:href="@{/models}">Car models</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page"> Update Car Model</li>
+                    <li class="breadcrumb-item"><a href="#" th:href="@{/models}">Models</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="page"> Update model</li>
                 </ol>
             </nav>
         </div>
@@ -66,8 +66,8 @@
 
 <div class="masthead">
     <div class="container d-flex align-items-center flex-column">
-        <h2>Edit Car model</h2>
-        <form th:replace="CarModelForm.html :: model-form"></form>
+        <h2>Edit model</h2>
+        <form th:replace="ModelForm.html :: model-form"></form>
         <br/><br/>
         <br/>
     </div>

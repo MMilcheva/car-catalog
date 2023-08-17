@@ -157,7 +157,6 @@ public class CarMvcController {
             if (userIdForCarCreation != null) {
                 User userForCarCreation = userService.getUserById(userIdForCarCreation);
                 car.setUser(userForCarCreation);
-
             }
 
             model.addAttribute("car", car);
@@ -173,8 +172,6 @@ public class CarMvcController {
         } catch (UnauthorizedOperationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
-
-
     }
 
     @PostMapping("/new")
@@ -200,13 +197,12 @@ public class CarMvcController {
         try {
             Car car = carMapper.convertToCar(carSaveRequest);
             Car createdCar = carService.createCar(car);
-
             return "redirect:/cars/" + createdCar.getCarId();
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
             return "NotFoundView2";
         } catch (DuplicateEntityException e) {
-            bindingResult.rejectValue("title", "duplicate_car", e.getMessage());
+            bindingResult.rejectValue("VIN", "duplicate_VIN", e.getMessage());
             return "CarCreateView";
         }
     }
@@ -215,6 +211,7 @@ public class CarMvcController {
     @GetMapping("/{carId}/update")
     public String showUpdateCarPage(@PathVariable Long carId, Model model,
                                     @RequestParam(required = false) Optional<String> carSearch,
+                                    BindingResult bindingResult,
                                     HttpSession session) {
 
         User user;
@@ -222,6 +219,9 @@ public class CarMvcController {
             user = authenticationHelper.tryGetUserWithSession(session);
         } catch (AuthenticationFailureException e) {
             return "redirect:/auth/login";
+        }
+        if (bindingResult.hasErrors()) {
+            return "ModelUpdateView";
         }
         try {
             Car car = carService.getCarById(carId);
@@ -271,7 +271,7 @@ public class CarMvcController {
             model.addAttribute("error", e.getMessage());
             return "NotFoundView2";
         } catch (DuplicateEntityException e) {
-            bindingResult.rejectValue("car", "duplicate_car", e.getMessage());
+            bindingResult.rejectValue("VIN", "duplicate_VIN", e.getMessage());
             return "CarUpdateView";
         } catch (UnauthorizedOperationException e) {
             model.addAttribute("error", e.getMessage());

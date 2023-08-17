@@ -56,21 +56,17 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb justify-content-center text-uppercase">
                     <li class="breadcrumb-item"><a href="#" th:href="@{/}">Home</a></li>
-                    <!--          <li class="breadcrumb-item"><a href="#">Vehicles</a></li>-->
-                    <li class="breadcrumb-item text-white active" aria-current="page"> Create a brand</li>
+                    <li class="breadcrumb-item"><a href="#" th:href="@{/brands}">Brands</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">Create a brand</li>
                 </ol>
             </nav>
         </div>
     </div>
 </div>
 
-<ul>
-    <li><h3><a href="#" th:href="@{/brands}" th:text="#{navigation.all-brands}">All brands</a></h3></li>
-
-</ul>
 <header class="masthead bg-primary text-white">
     <div class="container d-flex align-items-center flex-column">
-        <h2>New brand</h2>
+        <h2>Create a brand</h2>
         <form th:replace="BrandForm.html :: brand-form"></form>
     </div>
 </header>

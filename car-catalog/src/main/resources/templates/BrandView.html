@@ -63,8 +63,14 @@
     </div>
 </div>
 <!-- Page Header End -->
-
-
+<h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
+                                    href="#"
+                                    th:href="@{/models/new}" th:text="#{navigation.create-model}">Create a model</a>
+</h4>
+<h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
+                                    href="#"
+                                    th:href="@{/cars/new}" th:text="#{navigation.create-car}">Create a car</a>
+</h4>
 <div class="container text-center">
     <p class="display-6 text-black-70 mb-3 ">Brand</p>
 </div>
@@ -88,10 +94,10 @@
                 <tr>
                     <td>Models:</td>
                 <tbody>
-                <tr th:each="model : ${selectedCarModels}">
+                <tr th:each="model : ${selectedModels}">
                     <td>
-                        <a href="#" th:href="@{/models/__${model.getCarModelId()}__}"
-                           th:text="${model.carModelName}">Model name</a>
+                        <a href="#" th:href="@{/models/__${model.getModelId()}__}"
+                           th:text="${model.modelName}">Model name</a>
                     </td>
 
                 </tr>

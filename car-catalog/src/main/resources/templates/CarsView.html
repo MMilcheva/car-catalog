@@ -80,8 +80,9 @@
     <input type="text" placeholder="Brand name" th:field="*{brandName}"
            style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;"/>
 
-    <input type="text" placeholder="Registration date" th:field="*{registrationDate}"
+    <input type="date" placeholder="Registration date(yyyy-mm-dd)" th:field="*{registrationDate}"
            style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;"/>
+
 
     <input type="text" placeholder="Fuel type" th:field="*{fuelType}"
            style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;"/>
@@ -108,13 +109,18 @@
     <input type="submit" value="Search" style="flex-basis: 100%; margin-top: 1rem;"/>
 
 </form>
-
-
 <ul>
-    <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated && #strings.toString(session.admin) == 'admin'}"
+    <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
                                         href="#"
-                                        th:href="@{/cars/new(userIdForCarCreation=${car.user.userId})}"
-                                        th:text="#{navigation.create-car}">Create a car</a>
+                                        th:href="@{/cars/new}" th:text="#{navigation.create-car}">Create a car</a>
+    </h4>
+    <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
+                                        href="#"
+                                        th:href="@{/brands/new}" th:text="#{navigation.create-brand}">Create a brand</a>
+    </h4>
+    <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
+                                        href="#"
+                                        th:href="@{/models/new}" th:text="#{navigation.create-model}">Create a model</a>
     </h4>
 </ul>
 <section class="py-5">

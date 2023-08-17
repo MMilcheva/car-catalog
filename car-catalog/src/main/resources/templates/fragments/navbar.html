@@ -23,37 +23,15 @@
                     <div class="nav-item dropdown">
                         <a th:if="${isAuthenticated}" href="#" class="nav-link dropdown-toggle"
                            data-bs-toggle="dropdown">Pages</a>
-                        <!--                        <h2 th:text="#{home.welcome} + ' ' + ${session.currentUser}" th:if="${isAuthenticated}">Welcome (design)!</h2>-->
                         <div class="dropdown-menu fade-up m-0">
-
+                            <a href="#" th:href="@{/brands}" th:text="#{brands.label.brands}"
+                               class="dropdown-item">Brands</a>
+                            <a href="#" th:href="@{/models}" th:text="#{cars.label.models}"
+                               class="dropdown-item">Models</a>
                             <a href="#" th:href="@{/cars/my-cars}" th:text="#{cars.label.my-cars}"
                                class="dropdown-item">Cars</a>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div th:if="${isAuthenticated && #strings.toString(session.admin) == 'admin'}" class="nav-item dropdown">
-                <a th:href="@{auth/admin}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Admin Panel</a>
-                <div class="dropdown-menu fade-up m-0">
-                    <a href="#" th:href="@{/visits}" th:text="#{navigation.all-visits}" class="dropdown-item">Visits</a>
-                    <a href="#" th:href="@{/orders}" th:text="#{navigation.all-orders}" class="dropdown-item">Orders</a>
-                    <a href="#" th:href="@{/payments}" th:text="#{navigation.all-payments}" class="dropdown-item">Payments</a>
-
-                    <a href="#" th:href="@{/prices}" th:text="#{navigation.all-prices}" class="dropdown-item">Prices</a>
-                    <a href="#" th:href="@{/discounts}" th:text="#{navigation.all-discounts}" class="dropdown-item">Discounts</a>
-
-                    <a href="#" th:href="@{/brands}" th:text="#{navigation.all-brands}" class="dropdown-item">Brands</a>
-                    <a href="#" th:href="@{/models}" th:text="#{navigation.all-models}" class="dropdown-item">Car
-                        models</a>
-                    <a href="#" th:href="@{/cars}" th:text="#{navigation.all-cars}" class="dropdown-item">Vehicles</a>
-                    <a href="#" th:href="@{/car-maintenances}" th:text="#{navigation.all-car-maintenances}"
-                       class="dropdown-item">Car maintenances</a>
-                    <a href="#" th:href="@{/auth/register}" th:text="#{navigation.register}" class="dropdown-item">User
-                        registration</a>
-
-                    <a href="#" th:href="@{/users}" th:text="#{navigation.all-users}" class="dropdown-item">Users</a>
-                    <a href="#" th:href="@{/roles}" th:text="#{navigation.all-roles}" class="dropdown-item">Roles</a>
                 </div>
             </div>
 

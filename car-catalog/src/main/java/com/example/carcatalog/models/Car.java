@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -24,15 +25,17 @@ public class Car {
     @Column(name = "vin_number", length = 17)
     private String vin;
 
+    @NotNull(message = "Model name cannot be empty")
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "models_model_id")
     private Model model;
 
-
+    @NotNull(message = "Fuel type name cannot be empty")
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "fuel_types_fuel_type_id")
     private FuelType fuelType;
 
+    @NotNull(message = "Transmission type cannot be empty")
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "transmissions_transmission_id")
     private TransmissionType transmissionType;
@@ -45,6 +48,7 @@ public class Car {
 
     @NotNull(message = "Date of registration cannot be empty")
     @PastOrPresent(message = "Date of registration cannot be in the future")
+    @DateTimeFormat(pattern = "dd-MMM-yyyy")
     @Column(name = "reg_date")
     private LocalDate registrationDate;
 

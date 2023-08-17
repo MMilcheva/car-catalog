@@ -15,7 +15,7 @@ public class ModelFilterDto {
     public ModelFilterDto() {
     }
 
-    public Long getCarModelId() {
+    public Long getModelId() {
         return carModelId;
     }
 

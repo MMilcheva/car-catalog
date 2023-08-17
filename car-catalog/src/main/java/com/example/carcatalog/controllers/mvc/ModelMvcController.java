@@ -2,6 +2,7 @@ package com.example.carcatalog.controllers.mvc;
 
 
 import com.example.carcatalog.dto.ModelFilterDto;
+import com.example.carcatalog.dto.ModelFilterOptions;
 import com.example.carcatalog.dto.ModelResponse;
 import com.example.carcatalog.dto.ModelSaveRequest;
 import com.example.carcatalog.exceptions.AuthenticationFailureException;
@@ -12,7 +13,6 @@ import com.example.carcatalog.helpers.AuthenticationHelper;
 import com.example.carcatalog.helpers.ModelMapper;
 import com.example.carcatalog.models.Brand;
 import com.example.carcatalog.models.Model;
-import com.example.carcatalog.dto.ModelFilterOptions;
 import com.example.carcatalog.models.User;
 import com.example.carcatalog.services.contracts.BrandService;
 import com.example.carcatalog.services.contracts.ModelService;
@@ -45,8 +45,8 @@ public class ModelMvcController {
     }
 
     @GetMapping
-    public String filterAllCarModels(@ModelAttribute("carModelFilterOptions") ModelFilterDto modelFilterDto,
-                                     org.springframework.ui.Model model, HttpSession session) {
+    public String filterAllModels(@ModelAttribute("modelFilterOptions") ModelFilterDto modelFilterDto,
+                                  org.springframework.ui.Model model, HttpSession session) {
 
         User user;
         try {
@@ -62,10 +62,10 @@ public class ModelMvcController {
             sortBy = "modelName";
         }
         ModelFilterOptions modelFilterOptions = new ModelFilterOptions(
-                modelFilterDto.getCarModelId(),
+                modelFilterDto.getModelId(),
                 modelFilterDto.getModelName(),
                 modelFilterDto.getBrandName(),
-                     modelFilterDto.getSortBy(),
+                modelFilterDto.getSortBy(),
                 modelFilterDto.getSortOrder());
 
         model.addAttribute("models", modelService.getAllModelsFilter(modelFilterOptions));
@@ -73,8 +73,8 @@ public class ModelMvcController {
         return "ModelsView";
     }
 
-    @GetMapping("/{carModelId}")
-    public String showSingleCarModel(@PathVariable Long carModelId, org.springframework.ui.Model model, HttpSession session) {
+    @GetMapping("/{modelId}")
+    public String showSingleModel(@PathVariable Long modelId, org.springframework.ui.Model model, HttpSession session) {
         User user;
         try {
             user = authenticationHelper.tryGetUserWithSession(session);
@@ -83,8 +83,8 @@ public class ModelMvcController {
         }
 
         try {
-            Model carModel = modelService.getModelById(carModelId);
-            model.addAttribute("carModel", carModel);
+            Model carModel = modelService.getModelById(modelId);
+            model.addAttribute("model", carModel);
             return "ModelView";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
@@ -92,45 +92,42 @@ public class ModelMvcController {
         }
     }
 
+
     @GetMapping("/new")
-    public String showCarModelCreationForm(@ModelAttribute("modelSaveRequest") ModelSaveRequest modelSaveRequest, org.springframework.ui.Model model, HttpSession session, @RequestParam(required = false) Long brandId) {
+    public String showModelCreationForm(@ModelAttribute("modelSaveRequest") ModelSaveRequest modelSaveRequest, org.springframework.ui.Model model, HttpSession session, @RequestParam(required = false) Long brandId) {
+        User user;
         try {
-            User user = authenticationHelper.tryGetUserWithSession(session);
-//            checkAccessPermissions(user);
-            Model carModel = new Model();
-
-            if (brandId != null) {
-                Brand brand = brandService.getBrandById(brandId);
-                carModel.setBrand(brand);
-            }
-
-
-            model.addAttribute("model", carModel);
-            model.addAttribute("brands", brandService.getAllBrandOptions());
-            model.addAttribute("modelSaveRequest", modelSaveRequest);
-            return "CarModelCreateView";
-        } catch (UnauthorizedOperationException e) {
-            model.addAttribute("error", e.getMessage());
-            return "AccessDeniedView";
-
+            user = authenticationHelper.tryGetUserWithSession(session);
+        } catch (AuthenticationFailureException e) {
+            return "redirect:/auth/login";
         }
+        Model carModel = new Model();
+
+        if (brandId != null) {
+            Brand brand = brandService.getBrandById(brandId);
+            carModel.setBrand(brand);
+        }
+
+        model.addAttribute("model", carModel);
+        model.addAttribute("brands", brandService.getAllBrandOptions());
+        model.addAttribute("modelSaveRequest", modelSaveRequest);
+        return "ModelCreateView";
     }
 
     @PostMapping("/new")
-    public String createCarModel(@ModelAttribute("modelSaveRequest") ModelSaveRequest modelSaveRequest, BindingResult bindingResult, HttpSession session, org.springframework.ui.Model model) {
+    public String createModel(@Valid @ModelAttribute("modelSaveRequest") ModelSaveRequest modelSaveRequest, BindingResult bindingResult, HttpSession session, org.springframework.ui.Model model) {
         try {
             User user = authenticationHelper.tryGetUserWithSession(session);
-//            checkAccessPermissions(user);
 
             if (bindingResult.hasErrors()) {
                 return "ModelCreateView";
             }
 
 
-            Model carModel = modelMapper.convertToCarModel(modelSaveRequest);
+            Model carModel = modelMapper.convertToModel(modelSaveRequest);
             Model savedModel = modelService.createModel(carModel);
-            Long carModelId = savedModel.getModelId();
-            return "redirect:/models/" + carModelId;
+            Long modelId = savedModel.getModelId();
+            return "redirect:/models/" + modelId;
 
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
@@ -143,21 +140,20 @@ public class ModelMvcController {
     }
 
     @GetMapping("/{modelId}/update")
-    public String showUpdateCarModelForm(@PathVariable Long carModelId, org.springframework.ui.Model model, @RequestParam(required = false) Long brandId) {
+    public String showUpdateModelForm(@PathVariable Long modelId, org.springframework.ui.Model model, @RequestParam(required = false) Long brandId) {
         try {
 
-            Model carModel = modelService.getModelById(carModelId);
+            Model carModel = modelService.getModelById(modelId);
             Brand brand = carModel.getBrand();
 
-            ModelResponse modelResponse = modelMapper.convertToCarModelResponse(carModel);
+            ModelResponse modelResponse = modelMapper.convertToModelResponse(carModel);
             ModelSaveRequest modelSaveRequest = new ModelSaveRequest();
 
             modelSaveRequest.setModelName(modelResponse.getModelName());
-            modelSaveRequest.setBrand(brand);
-            modelSaveRequest.setBrandId(brandId);
             modelSaveRequest.setBrandName(modelResponse.getBrandName());
 
-            model.addAttribute("modelId", carModelId);
+            model.addAttribute("modelId", modelId);
+            model.addAttribute("brands", brandService.getAllBrandOptions());
             model.addAttribute("modelSaveRequest", modelSaveRequest);
             return "ModelUpdateView";
         } catch (EntityNotFoundException e) {
@@ -168,14 +164,13 @@ public class ModelMvcController {
     }
 
     @PostMapping("/{modelId}/update")
-    public String updateModel(@PathVariable Long carModelId,
+    public String updateModel(@PathVariable Long modelId,
                               @Valid @ModelAttribute("modelSaveRequest") ModelSaveRequest modelSaveRequest,
                               BindingResult bindingResult,
                               org.springframework.ui.Model model, HttpSession session) {
         User user;
         try {
             user = authenticationHelper.tryGetUserWithSession(session);
-//            checkAccessPermissions(user);
 
         } catch (AuthenticationFailureException e) {
             return "redirect:/auth/login";
@@ -184,16 +179,20 @@ public class ModelMvcController {
             return "ModelUpdateView";
         }
         try {
-            Model modelToBeUpdated = modelService.getModelById(carModelId);
-          modelSaveRequest.setBrand(modelToBeUpdated.getBrand());
-            Model carModel = modelMapper.convertToCarModel(modelSaveRequest);
+            Model modelToBeUpdated = modelService.getModelById(modelId);
+
+            ModelResponse modelResponse = modelMapper.convertToModelResponse(modelToBeUpdated);
+
+            modelSaveRequest.setBrandName(modelToBeUpdated.getBrand().getBrandName());
+
+            Model carModel = modelMapper.convertToModel(modelSaveRequest);
 
             modelToBeUpdated.setModelName(carModel.getModelName());
             modelToBeUpdated.setBrand(carModel.getBrand());
-            modelToBeUpdated.setModelId(carModelId);
+            modelToBeUpdated.setModelId(modelId);
             Model savedModel = modelService.updateModel(modelToBeUpdated);
 
-            return "redirect:/models/" + carModelId;
+            return "redirect:/models/"+modelId;
 
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());

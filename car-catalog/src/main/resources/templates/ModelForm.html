@@ -2,25 +2,25 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Car model form</title>
+    <title>Model form</title>
 </head>
 <body>
-<h3>---------I am Model Form------------</h3>
 
 <form th:fragment="model-form" action="#" th:action="@{__${requestURI}__}" th:object="${modelSaveRequest}" method="post">
-  <label th:text="#{model.label.carModelName}">Car model name</label>
+  <label th:text="#{model.label.modelName}">Model name</label>
   <br/>
-  <input type="text" th:field="*{carModelName}"/>
-  <label class="error" th:errors="*{carModelName}">Car model name error placeholder</label>
+
+  <input type="text" th:field="*{modelName}"/>
+  <label class="error" th:errors="*{modelName}">Model name error placeholder</label>
   <br/><br/>
 
   <label th:text="#{brand.label.brandName}">Brand name</label>
   <br/>
-  <select th:field="*{brandId}" id="dropDownList2">
+  <select th:field="*{brandName}" id="dropDownList2">
     <option value="0">select option</option>
-    <option th:each="brand : ${brands}" th:value="${brand.brandId}" th:text="${brand.brandName}"></option>
+    <option th:each="brand : ${brands}" th:value="${brand.brandName}" th:text="${brand.brandName}"></option>
   </select>
-
+  <br/><br/>
   <input type="submit" value="Save"/>
 </form>
 

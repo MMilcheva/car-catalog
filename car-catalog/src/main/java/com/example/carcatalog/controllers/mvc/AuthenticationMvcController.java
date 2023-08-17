@@ -6,7 +6,6 @@ import com.example.carcatalog.exceptions.AuthorizationException;
 import com.example.carcatalog.exceptions.EntityNotFoundException;
 import com.example.carcatalog.helpers.AuthenticationHelper;
 import com.example.carcatalog.helpers.AuthenticationMapper;
-import com.example.carcatalog.helpers.UserMapper;
 import com.example.carcatalog.models.User;
 import com.example.carcatalog.services.contracts.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -28,17 +27,17 @@ public class AuthenticationMvcController {
 
     private final UserService userService;
 
-    private final UserMapper userMapper;
+
 
 
     private final AuthenticationMapper mapper;
 
     public AuthenticationMvcController(AuthenticationHelper authenticationHelper, UserService userService,
-                                       UserMapper userMapper,
+
                                        AuthenticationMapper mapper) {
         this.authenticationHelper = authenticationHelper;
         this.userService = userService;
-        this.userMapper = userMapper;
+
 
         this.mapper = mapper;
     }

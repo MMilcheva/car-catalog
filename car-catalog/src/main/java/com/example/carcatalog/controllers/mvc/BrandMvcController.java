@@ -1,6 +1,7 @@
 package com.example.carcatalog.controllers.mvc;
 
 import com.example.carcatalog.dto.BrandFilterDto;
+import com.example.carcatalog.dto.BrandFilterOptions;
 import com.example.carcatalog.dto.BrandResponse;
 import com.example.carcatalog.dto.BrandSaveRequest;
 import com.example.carcatalog.exceptions.AuthenticationFailureException;
@@ -9,7 +10,6 @@ import com.example.carcatalog.exceptions.EntityNotFoundException;
 import com.example.carcatalog.helpers.AuthenticationHelper;
 import com.example.carcatalog.helpers.BrandMapper;
 import com.example.carcatalog.models.Brand;
-import com.example.carcatalog.dto.BrandFilterOptions;
 import com.example.carcatalog.models.User;
 import com.example.carcatalog.services.contracts.BrandService;
 import com.example.carcatalog.services.contracts.ModelService;
@@ -41,19 +41,16 @@ public class BrandMvcController {
 
 
     @GetMapping("/{brandId}/models")
-    public String getAllCarModelsByBrandId(@PathVariable Long brandId,  Model model, HttpSession session) {
-//@ModelAttribute("carModelFilterOptions") ModelFilterDto carModelFilterDto,
-//
+    public String getAllModelsByBrandId(@PathVariable Long brandId, Model model, HttpSession session) {
+
         User user;
         try {
             user = authenticationHelper.tryGetUserWithSession(session);
         } catch (AuthenticationFailureException e) {
             return "redirect:/auth/login";
         }
-//        checkAccessPermissions(user);
-
         model.addAttribute("selectedModels", modelService.getAllModelsByBrandId(brandId));
-        return "SelectedCarModelsView";
+        return "ModelsView";
     }
 
     @ModelAttribute("isAuthenticated")
@@ -73,7 +70,7 @@ public class BrandMvcController {
         try {
             Brand brand = brandService.getBrandById(brandId);
             model.addAttribute("brand", brand);
-            model.addAttribute("selectedCarModels", modelService.getAllModelsByBrandId(brandId));
+            model.addAttribute("selectedModels", modelService.getAllModelsByBrandId(brandId));
             return "BrandView";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
@@ -98,7 +95,7 @@ public class BrandMvcController {
 
         BrandFilterOptions brandFilterOptions = new BrandFilterOptions(
                 brandFilterDto.getBrandName(),
-                   brandFilterDto.getSortBy(),
+                brandFilterDto.getSortBy(),
                 brandFilterDto.getSortOrder());
         model.addAttribute("brands", brandService.getAllBrandsFilter(brandFilterOptions));
         return "BrandsView";

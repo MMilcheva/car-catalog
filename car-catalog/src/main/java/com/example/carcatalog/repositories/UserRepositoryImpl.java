@@ -1,8 +1,8 @@
 package com.example.carcatalog.repositories;
 
+import com.example.carcatalog.dto.UserFilterOptions;
 import com.example.carcatalog.exceptions.EntityNotFoundException;
 import com.example.carcatalog.models.User;
-import com.example.carcatalog.dto.UserFilterOptions;
 import com.example.carcatalog.repositories.contracts.UserRepository;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.Session;
@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Repository
@@ -323,8 +321,8 @@ public class UserRepositoryImpl extends AbstractCRUDRepository<User> implements 
         return orderBy;
     }
 
-    private LocalDate convertStringToLocalDate(String dateString) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return LocalDate.parse(dateString, formatter);
-    }
+//    private LocalDate convertStringToLocalDate(String dateString) {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        return LocalDate.parse(dateString, formatter);
+//    }
 }

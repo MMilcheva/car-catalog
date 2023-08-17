@@ -24,35 +24,34 @@ public class ModelMapper {
     }
 
 
-    public Model convertToCarModel(ModelSaveRequest modelSaveRequest) {
+    public Model convertToModel(ModelSaveRequest modelSaveRequest) {
         Model model = new Model();
         model.setModelName(modelSaveRequest.getModelName());
 
-        Brand brand = brandService.getBrandById(modelSaveRequest.getBrandId());
+        Brand brand = brandService.getBrandByName(modelSaveRequest.getBrandName());
         model.setBrand(brand);
-//        model.setArchived(false);
         return model;
     }
 
-    public ModelResponse convertToCarModelResponse(Model model) {
+    public ModelResponse convertToModelResponse(Model model) {
 
         ModelResponse modelResponse = new ModelResponse();
         modelResponse.setModelName(model.getModelName());
         modelResponse.setBrandName(model.getBrand().getBrandName());
         return modelResponse;
     }
-    public List<ModelResponse> convertToCarModelResponses(List<Model> models) {
+    public List<ModelResponse> convertToModelResponses(List<Model> models) {
 
         List<ModelResponse> modelRespons = new ArrayList<>();
 
-        models.forEach(carModel -> modelRespons.add(convertToCarModelResponse(carModel)));
+        models.forEach(carModel -> modelRespons.add(convertToModelResponse(carModel)));
         return modelRespons;
     }
 
-    public ModelSaveRequest convertToCarModelSaveRequest(Model model) {
+    public ModelSaveRequest convertToModelSaveRequest(Model model) {
         ModelSaveRequest modelSaveRequest = new ModelSaveRequest();
         modelSaveRequest.setModelName(model.getModelName());
-        modelSaveRequest.setBrand(model.getBrand());
+        modelSaveRequest.setBrandName(model.getBrand().getBrandName());
         return modelSaveRequest;
     }
 
