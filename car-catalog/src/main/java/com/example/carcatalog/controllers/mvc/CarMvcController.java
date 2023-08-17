@@ -1,6 +1,7 @@
 package com.example.carcatalog.controllers.mvc;
 
 import com.example.carcatalog.dto.CarFilterDto;
+import com.example.carcatalog.dto.CarFilterOptions;
 import com.example.carcatalog.dto.CarResponse;
 import com.example.carcatalog.dto.CarSaveRequest;
 import com.example.carcatalog.exceptions.AuthenticationFailureException;
@@ -10,7 +11,6 @@ import com.example.carcatalog.exceptions.UnauthorizedOperationException;
 import com.example.carcatalog.helpers.AuthenticationHelper;
 import com.example.carcatalog.helpers.CarMapper;
 import com.example.carcatalog.models.Car;
-import com.example.carcatalog.dto.CarFilterOptions;
 import com.example.carcatalog.models.User;
 import com.example.carcatalog.services.contracts.*;
 import jakarta.servlet.http.HttpSession;
@@ -33,8 +33,8 @@ public class CarMvcController {
     private final CarMapper carMapper;
     private final UserService userService;
     private final ModelService modelService;
-    private  final FuelTypeService fuelTypeService;
-    private  final TransmissionTypeService transmissionTypeService;
+    private final FuelTypeService fuelTypeService;
+    private final TransmissionTypeService transmissionTypeService;
     private final AuthenticationHelper authenticationHelper;
 
     @Autowired
@@ -213,7 +213,9 @@ public class CarMvcController {
 
 
     @GetMapping("/{carId}/update")
-    public String showUpdateCarPage(@PathVariable Long carId, Model model, HttpSession session) {
+    public String showUpdateCarPage(@PathVariable Long carId, Model model,
+                                    @RequestParam(required = false) Optional<String> carSearch,
+                                    HttpSession session) {
 
         User user;
         try {
@@ -223,10 +225,17 @@ public class CarMvcController {
         }
         try {
             Car car = carService.getCarById(carId);
+
             CarResponse carResponse = carMapper.convertToCarResponse(car);
-            CarSaveRequest carSaveRequest = new CarSaveRequest();
+
+            CarSaveRequest carSaveRequest = carMapper.convertCarResponseToCarSaveRequest(carResponse);
+
+            carSaveRequest.setUserName(user.getUsername());
 
             model.addAttribute("carId", carId);
+            model.addAttribute("models", modelService.getAllModels(carSearch));
+            model.addAttribute("fuelTypes", fuelTypeService.getAllFuelTypes(carSearch));
+            model.addAttribute("transmissionTypes", transmissionTypeService.getAllTransmissionTypes(carSearch));
             model.addAttribute("carSaveRequest", carSaveRequest);
             return "CarUpdateView";
         } catch (EntityNotFoundException e) {
@@ -246,6 +255,7 @@ public class CarMvcController {
         User checkUser;
         try {
             checkUser = authenticationHelper.tryGetUserWithSession(session);
+            carSaveRequest.setUserName(checkUser.getUsername());
         } catch (AuthenticationFailureException e) {
             return "redirect:/auth/login";
         }
@@ -255,10 +265,7 @@ public class CarMvcController {
         try {
             Car car = carMapper.convertToCarToBeUpdated(carId, carSaveRequest);
 
-            Car carToBeUpdated = carService.getCarById(carId);
-
-
-            carService.updateCar(carToBeUpdated);
+            carService.updateCar(car);
             return "redirect:/cars/{carId}";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());

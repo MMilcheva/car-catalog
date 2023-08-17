@@ -9,6 +9,8 @@ public class CarResponse {
     private LocalDate registrationDate;
     private String fuelTypeName;
     private String transmissionTypeName;
+
+    private Double price;
     private String remarks;
     private String userName;
     public CarResponse() {
@@ -60,6 +62,14 @@ public class CarResponse {
 
     public void setTransmissionTypeName(String transmissionTypeName) {
         this.transmissionTypeName = transmissionTypeName;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public String getRemarks() {

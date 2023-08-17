@@ -58,14 +58,28 @@ public class CarMapper {
         carResponse.setRegistrationDate(car.getRegistrationDate());
         carResponse.setFuelTypeName(car.getFuelType().getFuelTypeName());
         carResponse.setTransmissionTypeName(car.getTransmissionType().getTransmissionTypeName());
+        carResponse.setPrice(car.getPrice());
         carResponse.setRemarks(car.getRemarks());
         carResponse.setUserName(car.getUser().getUsername());
         return carResponse;
     }
 
+    public CarSaveRequest convertCarResponseToCarSaveRequest(CarResponse carResponse) {
+
+        CarSaveRequest carSaveRequest = new CarSaveRequest();
+
+        carSaveRequest.setModelName(carResponse.getModelName());
+        carSaveRequest.setVin(carResponse.getVin());
+        carSaveRequest.setRegistrationDate(carResponse.getRegistrationDate());
+        carSaveRequest.setFuelTypeName(carResponse.getFuelTypeName());
+        carSaveRequest.setTransmissionTypeName(carResponse.getTransmissionTypeName());
+        carSaveRequest.setPrice(carResponse.getPrice());
+        carSaveRequest.setRemarks(carResponse.getRemarks());
+        return carSaveRequest;
+    }
+
     public Car convertToCarToBeUpdated(Long carToBeUpdatedId, CarSaveRequest carSaveRequest) {
         Car carToBeUpdated = carService.getCarById(carToBeUpdatedId);
-
 
         carToBeUpdated.setVin(carSaveRequest.getVin());
         Model model = modelService.getModelByName(carSaveRequest.getModelName());
@@ -79,7 +93,7 @@ public class CarMapper {
         carToBeUpdated.setRemarks(carSaveRequest.getRemarks());
         User user = userService.getUserByUsername(carSaveRequest.getUserName());
         carToBeUpdated.setUser(user);
-
+        carToBeUpdated.setRemarks(carSaveRequest.getRemarks());
         return carToBeUpdated;
     }
 
