@@ -8,10 +8,10 @@ public class TransmissionTypeFilterOptions {
     private Optional<String> sortBy;
     private Optional<String> sortOrder;
 
-    public TransmissionTypeFilterOptions(Optional<String> transmissionTypeName, Optional<String> sortBy, Optional<String> sortOrder) {
-        TransmissionTypeName = transmissionTypeName;
-        this.sortBy = sortBy;
-        this.sortOrder = sortOrder;
+    public TransmissionTypeFilterOptions(String transmissionTypeName, String sortBy, String sortOrder) {
+        TransmissionTypeName = Optional.ofNullable(transmissionTypeName);
+        this.sortBy = Optional.ofNullable(sortBy);
+        this.sortOrder = Optional.ofNullable(sortOrder);
     }
 
     public Optional<String> getTransmissionTypeName() {
