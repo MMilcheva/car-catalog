@@ -181,7 +181,7 @@ public class CarMvcController {
     }
 
     @PostMapping("/new")
-    public String createCar(@Validated @ModelAttribute("carSaveRequest") CarSaveRequest carSaveRequest,
+    public String createCar(@Valid @ModelAttribute("carSaveRequest") CarSaveRequest carSaveRequest,
                             BindingResult bindingResult,
                             Model model, HttpSession session) {
 
@@ -204,7 +204,7 @@ public class CarMvcController {
             return "redirect:/cars/" + createdCar.getCarId();
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
-            return "NotFoundView2";
+            return "NotFoundView";
         } catch (DuplicateEntityException e) {
             model.addAttribute("error", e.getMessage());
             return "DuplicateEntityView";

@@ -2,7 +2,6 @@ package com.example.carcatalog.services;
 
 import com.example.carcatalog.dto.CarFilterOptions;
 import com.example.carcatalog.exceptions.DuplicateEntityException;
-import com.example.carcatalog.exceptions.EntityNotFoundException;
 import com.example.carcatalog.models.Car;
 import com.example.carcatalog.models.User;
 import com.example.carcatalog.repositories.contracts.CarRepository;
@@ -40,16 +39,18 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void deleteCar(long carId, User user) {
-//        checkModifyPermissions(user);
         carRepository.delete(carId);
     }
 
     @Override
     public Car createCar(Car car) {
-
-        carRepository.create(car);
-
-        return car;
+        List<Car> existingCars = carRepository.findCarByVin(car.getVin());
+        if (!existingCars.isEmpty()) {
+            throw new DuplicateEntityException("Car", "vin", existingCars.get(0).getVin());
+        } else {
+            carRepository.create(car);
+            return car;
+        }
     }
 
     @Override

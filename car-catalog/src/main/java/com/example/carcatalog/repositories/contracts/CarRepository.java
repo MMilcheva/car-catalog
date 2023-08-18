@@ -26,4 +26,5 @@ public interface CarRepository extends BaseCRUDRepository<Car> {
                      Optional<String> sortOrder);
 
 
+    List<Car> findCarByVin(String vin);
 }

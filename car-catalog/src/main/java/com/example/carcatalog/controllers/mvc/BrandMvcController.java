@@ -144,7 +144,6 @@ public class BrandMvcController {
         } catch (DuplicateEntityException e) {
             model.addAttribute("error", e.getMessage());
             return "DuplicateEntityView";
-
         }
     }
 

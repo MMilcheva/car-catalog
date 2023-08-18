@@ -1,5 +1,6 @@
 package com.example.carcatalog.services;
 
+import com.example.carcatalog.exceptions.DuplicateEntityException;
 import com.example.carcatalog.models.Brand;
 import com.example.carcatalog.dto.BrandFilterOptions;
 import com.example.carcatalog.models.User;
@@ -51,7 +52,6 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public void deleteBrand(long brandId, User user) {
-//        checkModifyPermissions(user);
         brandRepository.delete(brandId);
     }
 
@@ -61,13 +61,24 @@ public class BrandServiceImpl implements BrandService {
         List<Brand> existingBrands = brandRepository.findByBrandName(brand.getBrandName());
         if (!existingBrands.isEmpty()) {
             // Use the first existing brand
-            return existingBrands.get(0);
+            throw new DuplicateEntityException("brand", "name", existingBrands.get(0).getBrandName());
         } else {
             brandRepository.create(brand);
             return brand;
         }
     }
 
+//    @Override
+//    public Brand createBrand(Brand brand) {
+//        List<Brand> existingBrands = brandRepository.findByBrandName(brand.getBrandName());
+//        if (!existingBrands.isEmpty()) {
+//            // Use the first existing brand
+//            return existingBrands.get(0);
+//        } else {
+//            brandRepository.create(brand);
+//            return brand;
+//        }
+//    }
     public Brand checkIfBrandExists(Brand brand) {
         Brand existingBrand = brandRepository.findBrandByName(brand.getBrandName());
         if (existingBrand != null) {

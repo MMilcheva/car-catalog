@@ -34,6 +34,15 @@ public class CarRepositoryImpl extends AbstractCRUDRepository<Car> implements Ca
     }
 
     @Override
+    public List<Car> findCarByVin(String vin) {
+        try (Session session = sessionFactory.openSession()) {
+            Query<Car> query = session.createQuery(" select car from Car car where  car.vin=:vin", Car.class);
+            query.setParameter("vin", vin);
+
+            return query.list();
+        }
+    }
+    @Override
     public List<Car> getAllCars(Optional<String> search) {
         if (search.isEmpty()) {
             return getAll();
@@ -147,4 +156,6 @@ public class CarRepositoryImpl extends AbstractCRUDRepository<Car> implements Ca
             return queryList.list();
         }
     }
+
+
 }
