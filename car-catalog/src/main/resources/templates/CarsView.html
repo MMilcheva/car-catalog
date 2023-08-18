@@ -132,6 +132,7 @@
                     <th>Model</th>
                     <th>Brand</th>
                     <th>Registration date</th>
+                    <th>VIN</th>
                     <th>Fuel type</th>
                     <th>Transmission type</th>
                     <th>Price</th>
@@ -145,6 +146,7 @@
                     <td><a href="#" th:href="@{/brands/__${car.getModel().getBrand().getBrandId()}__}" th:text="${car.getModel().getBrand().getBrandName()}">Brand</a></td>
 <!--                    <td th:text="${car.getModel().getBrand().getBrandName()}">Brand</td>-->
                     <td th:text="${car.getRegistrationDate()}">Registration date</td>
+                    <td th:text="${car.getVin()}">VIN</td>
                     <td th:text="${car.getFuelType().getFuelTypeName()}">Fuel type</td>
                     <td th:text="${car.getTransmissionType().getTransmissionTypeName()}">Transmission type</td>
                     <td th:text="${car.getPrice()}">Price</td>

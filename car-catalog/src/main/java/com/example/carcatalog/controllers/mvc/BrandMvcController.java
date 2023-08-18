@@ -7,6 +7,7 @@ import com.example.carcatalog.dto.BrandSaveRequest;
 import com.example.carcatalog.exceptions.AuthenticationFailureException;
 import com.example.carcatalog.exceptions.DuplicateEntityException;
 import com.example.carcatalog.exceptions.EntityNotFoundException;
+import com.example.carcatalog.exceptions.UnauthorizedOperationException;
 import com.example.carcatalog.helpers.AuthenticationHelper;
 import com.example.carcatalog.helpers.BrandMapper;
 import com.example.carcatalog.models.Brand;
@@ -135,7 +136,6 @@ public class BrandMvcController {
             Brand brand = brandMapper.convertToBrand(brandSaveRequest);
             Brand createdBrand = brandService.createBrand(brand);
             return "redirect:/brands/" + createdBrand.getBrandId();
-
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
             return "NotFoundView";
@@ -187,13 +187,11 @@ public class BrandMvcController {
             return "BrandUpdateView";
         }
         try {
-//            checkModifyPermissions(postId, user);
             Brand brand = brandMapper.convertToBrand(brandSaveRequest);
             brand.setBrandName(brandSaveRequest.getBrandName());
 
             Brand brandToBeUpdated = brandService.getBrandById(brandId);
             brandToBeUpdated.setBrandName(brand.getBrandName());
-
 
             brandService.updateBrand(brandToBeUpdated);
             return "redirect:/brands/{brandId}";
@@ -207,9 +205,25 @@ public class BrandMvcController {
         }
 
     }
-//    private static void checkAccessPermissions(User executingUser) {
-//        if (!executingUser.getRole().getRoleName().equals("admin")) {
-//            throw new UnauthorizedOperationException(ERROR_MESSAGE);
-//        }
-//    }
+
+    @GetMapping("/{brandId}/delete")
+    public String delete(@PathVariable int brandId, Model model, HttpSession session) {
+
+        User user;
+        try {
+            user = authenticationHelper.tryGetUserWithSession(session);
+        } catch (AuthenticationFailureException e) {
+            return "redirect:/auth/login";
+        }
+        try {
+            brandService.deleteBrand(brandId, user);
+            return "redirect:/brands";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+            return "NotFoundView2";
+        } catch (UnauthorizedOperationException e) {
+            model.addAttribute("error", e.getMessage());
+            return "AccessDeniedView";
+        }
+    }
 }

@@ -111,6 +111,11 @@ public class CarMvcController {
             return "redirect:/auth/login";
         }
 
+        String sortBy = carFilterDto.getSortBy();
+        if (sortBy == null || sortBy.isEmpty()) {
+            sortBy = "brandName";
+        }
+
         carFilterDto.setUserId(user.getUserId());
         try {
             CarFilterOptions carFilterOptions = new CarFilterOptions(
@@ -200,9 +205,14 @@ public class CarMvcController {
             model.addAttribute("error", e.getMessage());
             return "NotFoundView2";
         } catch (DuplicateEntityException e) {
-            bindingResult.rejectValue("vin", "duplicate_VIN", e.getMessage());
-            return "CarCreateView";
+            model.addAttribute("error", e.getMessage());
+            return "DuplicateEntityView";
         }
+
+//        catch (DuplicateEntityException e) {
+//            bindingResult.rejectValue("vin", "duplicate_VIN", e.getMessage());
+//            return "CarCreateView";
+//        }
     }
 
 
@@ -217,9 +227,6 @@ public class CarMvcController {
         } catch (AuthenticationFailureException e) {
             return "redirect:/auth/login";
         }
-//        if (bindingResult.hasErrors()) {
-//            return "ModelUpdateView";
-//        }
         try {
             Car car = carService.getCarById(carId);
 
@@ -276,7 +283,7 @@ public class CarMvcController {
 
 
     @GetMapping("/{carId}/delete")
-    public String deleteDelete(@PathVariable int carId, Model model, HttpSession session) {
+    public String delete(@PathVariable int carId, Model model, HttpSession session) {
 
         User user;
         try {
@@ -296,10 +303,5 @@ public class CarMvcController {
         }
     }
 
-//    private static void checkAccessPermissions(User executingUser) {
-//        if (!executingUser.getRole().getRoleName().equals("admin")) {
-//            throw new UnauthorizedOperationException(ERROR_MESSAGE);
-//        }
-//    }
 }
 

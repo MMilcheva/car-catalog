@@ -208,18 +208,17 @@ public class ModelMvcController {
     }
 
     @GetMapping("/{modelId}/delete")
-    public String delete(@PathVariable Long carModelId, org.springframework.ui.Model model, HttpSession session) {
+    public String delete(@PathVariable Long modelId, org.springframework.ui.Model model, HttpSession session) {
 
         User user;
         try {
             user = authenticationHelper.tryGetUserWithSession(session);
-//            checkAccessPermissions(user);
         } catch (AuthenticationFailureException e) {
             return "redirect:/auth/login";
         }
         try {
-            modelService.block(user, carModelId);
-            return "redirect:/users";
+            modelService.deleteModel(modelId);
+            return "redirect:/models";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
             return "NotFoundView2";
@@ -228,11 +227,5 @@ public class ModelMvcController {
             return "AccessDeniedView";
         }
     }
-
-//    private static void checkAccessPermissions(User executingUser) {
-//        if (!executingUser.getRole().getRoleName().equals("admin")) {
-//            throw new UnauthorizedOperationException(ERROR_MESSAGE);
-//        }
-//    }
 
 }
