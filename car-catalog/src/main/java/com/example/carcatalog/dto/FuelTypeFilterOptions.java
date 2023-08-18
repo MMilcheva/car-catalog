@@ -4,23 +4,25 @@ import java.util.Optional;
 
 public class FuelTypeFilterOptions {
 
-    private Optional<String> FuelTypeName;
+    private Optional<String> fuelTypeName;
     private Optional<String> sortBy;
-
     private Optional<String> sortOrder;
 
-    public FuelTypeFilterOptions(Optional<String> fuelTypeName, Optional<String> sortBy, Optional<String> sortOrder) {
-        FuelTypeName = fuelTypeName;
-        this.sortBy = sortBy;
-        this.sortOrder = sortOrder;
+    public FuelTypeFilterOptions(String fuelTypeName, String sortBy, String sortOrder) {
+        this.fuelTypeName = Optional.ofNullable(fuelTypeName);
+        this.sortBy = Optional.ofNullable(sortBy);
+        this.sortOrder = Optional.ofNullable(sortOrder);
+    }
+    public FuelTypeFilterOptions() {
+        this(null, null, null);
     }
 
     public Optional<String> getFuelTypeName() {
-        return FuelTypeName;
+        return fuelTypeName;
     }
 
     public void setFuelTypeName(Optional<String> fuelTypeName) {
-        FuelTypeName = fuelTypeName;
+        this.fuelTypeName = fuelTypeName;
     }
 
     public Optional<String> getSortBy() {
