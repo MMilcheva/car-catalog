@@ -46,21 +46,15 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public Car createCar(Car car) {
+
         carRepository.create(car);
+
         return car;
     }
 
     @Override
     public Car updateCar(Car car) {
-        boolean duplicateVINExists = true;
-        try {
-            carRepository.update(car);
-        } catch (EntityNotFoundException e) {
-            duplicateVINExists = false;
-        }
-        if (duplicateVINExists) {
-            throw new DuplicateEntityException("Car", "VIN", car.getVin());
-        }
+        carRepository.update(car);
         return car;
     }
 

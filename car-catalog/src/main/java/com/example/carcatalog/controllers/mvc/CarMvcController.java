@@ -20,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -180,7 +181,7 @@ public class CarMvcController {
     }
 
     @PostMapping("/new")
-    public String createCar(@Valid @ModelAttribute("carSaveRequest") CarSaveRequest carSaveRequest,
+    public String createCar(@Validated @ModelAttribute("carSaveRequest") CarSaveRequest carSaveRequest,
                             BindingResult bindingResult,
                             Model model, HttpSession session) {
 
@@ -209,10 +210,9 @@ public class CarMvcController {
             return "DuplicateEntityView";
         }
 
-//        catch (DuplicateEntityException e) {
-//            bindingResult.rejectValue("vin", "duplicate_VIN", e.getMessage());
-//            return "CarCreateView";
-//        }
+
+
+
     }
 
 
@@ -272,9 +272,7 @@ public class CarMvcController {
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
             return "NotFoundView2";
-        } catch (DuplicateEntityException e) {
-            bindingResult.rejectValue("VIN", "duplicate_VIN", e.getMessage());
-            return "CarUpdateView";
+
         } catch (UnauthorizedOperationException e) {
             model.addAttribute("error", e.getMessage());
             return "AccessDeniedView";
