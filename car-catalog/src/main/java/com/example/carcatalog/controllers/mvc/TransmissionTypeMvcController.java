@@ -118,14 +118,13 @@ public class TransmissionTypeMvcController {
         try {
             TransmissionType transmissionType = transmissionTypeMapper.convertToTransmissionType(transmissionTypeSaveRequest);
             TransmissionType createdTransmissionType = transmissionTypeService.createTransmissionType(transmissionType);
-            return "redirect:/fuel-types/" + createdTransmissionType.getTransmissionTypeId();
-        } catch (EntityNotFoundException e) {
-            model.addAttribute("error", e.getMessage());
-            return "NotFoundView";
+            return "redirect:/transmission-types/" + createdTransmissionType.getTransmissionTypeId();
         } catch (DuplicateEntityException e) {
             model.addAttribute("error", e.getMessage());
             return "DuplicateEntityView";
-
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+            return "NotFoundView";
         }
     }
 
@@ -177,7 +176,7 @@ public class TransmissionTypeMvcController {
             transmissionTypeToBeUpdated.setTransmissionTypeName(transmissionType.getTransmissionTypeName());
 
             transmissionTypeService.updateTransmissionType(transmissionTypeToBeUpdated);
-            return "redirect:/fuel-types/{transmissionTypeId}";
+            return "redirect:/transmission-types/{transmissionTypeId}";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
             return "NotFoundView";
@@ -198,7 +197,7 @@ public class TransmissionTypeMvcController {
         }
         try {
             transmissionTypeService.deleteTransmissionType(transmissionTypeId, user);
-            return "redirect:/fuel-types";
+            return "redirect:/transmission-types";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
             return "NotFoundView2";

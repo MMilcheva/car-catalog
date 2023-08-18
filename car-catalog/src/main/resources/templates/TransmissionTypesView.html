@@ -3,7 +3,7 @@
 <!-- Start head -->
 <head>
     <meta charset="utf-8">
-    <title>Fuel types</title>
+    <title>Transmission types</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -30,11 +30,11 @@
 <div class="container-fluid page-header mb-5 p-0" style="background-image: url('/img/carousel-bg-2.jpg');">
     <div class="container-fluid page-header-inner py-5">
         <div class="container text-center">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">Fuel types</h1>
+            <h1 class="display-3 text-white mb-3 animated slideInDown">Transmission types</h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb justify-content-center text-uppercase">
                     <li class="breadcrumb-item"><a href="#" th:href="@{/}">Home</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page">Fuel types</li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">Transmission types</li>
                 </ol>
             </nav>
         </div>
@@ -43,17 +43,17 @@
 <!-- Page Header End -->
 
 
-<form action="#" th:action="@{/fuel-types}" th:object="${fuelTypeFilterOptions}" method="get"
+<form action="#" th:action="@{/transmission-types}" th:object="${transmissionTypeFilterOptions}" method="get"
       style="display: flex; flex-wrap: wrap; justify-content: center;">
-    <label th:text="#{fuel-type.filter.label}"
-           style="flex-basis: 100%; display: flex; justify-content: center; font-size: 1.7rem;">Filter options</label>
+    <label th:text="#{transmission-type.filter.label}"
+           style="flex-basis: 100%; display: flex; justify-content: center; font-size: 1.7rem;">Transmission options</label>
 
-    <input type="text" placeholder="Fuel type name" th:field="*{fuelTypeName}"
+    <input type="text" placeholder="Transmission type name" th:field="*{transmissionTypeName}"
            style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;"/>
 
     <select th:field="*{sortBy}" style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;">
         <option value="">Sort by</option>
-        <option th:value="fuelTypeName">Fuel type name</option>
+        <option th:value="transmissionTypeName">Transmission type name</option>
     </select>
 
     <select th:field="*{sortOrder}" style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;">
@@ -70,8 +70,8 @@
 <ul>
     <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
                                         href="#"
-                                        th:href="@{fuel-types/new}" th:text="#{navigation.create-fuel-type}">Create a
-        fuel type</a>
+                                        th:href="@{transmission-types/new}" th:text="#{navigation.create-transmission-type}">Create a
+        transmission type</a>
     </h4>
 </ul>
 
@@ -82,13 +82,13 @@
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>Fuel type name</th>
+                    <th>Transmission type name</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="fuelType : ${fuelTypes}">
-                    <td><a href="#" th:href="@{/fuel-types/__${fuelType.getFuelTypeId()}__}"
-                           th:text="${fuelType.fuelTypeName}">Fuel type name</a></td>
+                <tr th:each="transmissionType : ${transmissionTypes}">
+                    <td><a href="#" th:href="@{/transmission-types/__${transmissionType.getTransmissionTypeId()}__}"
+                           th:text="${transmissionType.transmissionTypeName}">Transmission type name</a></td>
                 </tr>
                 </tbody>
             </table>

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>FuelType</title>
+    <title>Transmission Type</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -51,11 +51,11 @@
 <div class="container-fluid page-header mb-5 p-0" style="background-image: url('/img/carousel-bg-2.jpg');">
     <div class="container-fluid page-header-inner py-5">
         <div class="container text-center">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">Fuel type</h1>
+            <h1 class="display-3 text-white mb-3 animated slideInDown">Transmission type</h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb justify-content-center text-uppercase">
                     <li class="breadcrumb-item"><a href="#" th:href="@{/}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#" th:href="@{/fuel-types}">FuelTypes</a></li>
+                    <li class="breadcrumb-item"><a href="#" th:href="@{/transmission-types}">TransmissionTypes</a></li>
                     <li class="breadcrumb-item text-white active" aria-current="page">FuelType info</li>
                 </ol>
             </nav>
@@ -65,11 +65,11 @@
 <!-- Page Header End -->
 <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
                                     href="#"
-                                    th:href="@{/fuel-types/new}" th:text="#{navigation.create-fuel-type}">Create a fuel type</a>
+                                    th:href="@{/transmission-types/new}" th:text="#{navigation.create-transmission-type}">Create a transmission type</a>
 </h4>
 
 <div class="container text-center">
-    <p class="display-6 text-black-70 mb-3 ">Fuel type</p>
+    <p class="display-6 text-black-70 mb-3 ">Transmission type</p>
 </div>
 
 
@@ -79,14 +79,14 @@
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th colspan="2">Fuel type details:</th>
+                    <th colspan="2">Transmission type details:</th>
                 </tr>
                 </thead>
 
                 <tbody>
                 <tr>
-                    <td>Fuel type name:</td>
-                    <td th:text="${fuelType.fuelTypeName}" class="fw-bolder">Fuel type name</td>
+                    <td>Transmission type name:</td>
+                    <td th:text="${transmissionType.transmissionTypeName}" class="fw-bolder">Transmission type name</td>
                 </tr>
 
                 </tbody>
@@ -96,8 +96,8 @@
 </section>
 
 <ul>
-<a href="#" th:href="@{__${fuelTypeId}__/update}">Update</a>
-<a href="#" th:href="@{__${fuelTypeId}__/delete}">Delete</a>
+<a href="#" th:href="@{__${transmissionTypeId}__/update}">Update</a>
+<a href="#" th:href="@{__${transmissionTypeId}__/delete}">Delete</a>
 </ul>
 
 <footer th:replace="fragments/footer :: footer"></footer>

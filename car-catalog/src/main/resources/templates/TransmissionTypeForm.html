@@ -2,15 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Fuel type form</title>
+    <title>Transmission type form</title>
 </head>
 <body>
 
-<form th:fragment="fuel-type-form" action="#" th:action="@{__${requestURI}__}" th:object="${fuelTypeSaveRequest}" method="post">
-  <label th:text="#{fuel-type.label.fuelTypeName}">Fuel type name</label>
+<form th:fragment="transmission-type-form" action="#" th:action="@{__${requestURI}__}" th:object="${transmissionTypeSaveRequest}" method="post">
+  <label th:text="#{transmission-type.label.transmissionTypeName}">Transmission type name</label>
   <br/>
-  <input type="text" th:field="*{fuelTypeName}"/>
-  <label class="error" th:errors="*{fuelTypeName}">Fuel type name error placeholder</label>
+  <input type="text" th:field="*{transmissionTypeName}"/>
+  <label class="error" th:errors="*{transmissionTypeName}">Transmission type name error placeholder</label>
   <br/><br/>
 
   <input type="submit" value="Save"/>
