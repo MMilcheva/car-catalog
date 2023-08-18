@@ -182,13 +182,11 @@ public class CarMvcController {
         User user;
         try {
             user = authenticationHelper.tryGetUserWithSession(session);
-//            checkAccessPermissions(user);
             carSaveRequest.setUserName(user.getUsername());
         } catch (AuthenticationFailureException e) {
             return "redirect:/auth/login";
         } catch (UnauthorizedOperationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-            //TODO not authorized view to be created
         }
 
         if (bindingResult.hasErrors()) {
@@ -202,7 +200,7 @@ public class CarMvcController {
             model.addAttribute("error", e.getMessage());
             return "NotFoundView2";
         } catch (DuplicateEntityException e) {
-            bindingResult.rejectValue("VIN", "duplicate_VIN", e.getMessage());
+            bindingResult.rejectValue("vin", "duplicate_VIN", e.getMessage());
             return "CarCreateView";
         }
     }
@@ -248,9 +246,7 @@ public class CarMvcController {
 
     @PostMapping("/{carId}/update")
     public String updateCar(@PathVariable Long carId,
-                            @Valid @ModelAttribute("carSaveRequest") CarSaveRequest carSaveRequest,
-                            BindingResult bindingResult,
-                            Model model, HttpSession session) {
+                            @Valid @ModelAttribute("carSaveRequest") CarSaveRequest carSaveRequest, Model model, BindingResult bindingResult, HttpSession session) {
         User checkUser;
         try {
             checkUser = authenticationHelper.tryGetUserWithSession(session);

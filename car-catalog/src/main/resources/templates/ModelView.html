@@ -70,37 +70,38 @@
 </div>
 
 <section class="py-5">
-<div class="container px-4 px-lg-5 mt-5">
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th colspan="2">Model details:</th>
-            </tr>
-            </thead>
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th colspan="2">Model details:</th>
+                </tr>
+                </thead>
 
-            <tbody>
-            <tr>
-                <td>Model name:</td>
-                <td th:text="${model.modelName}" class="fw-bolder">Model name</td>
-            </tr>
-            <tr>
-                <td>Brand:</td>
-                <td th:text="${model.brand.brandName}" class="fw-bolder">Brand</td>
-            </tr>
-            </tbody>
-        </table>
+                <tbody>
+                <tr>
+                    <td>Model name:</td>
+                    <td th:text="${model.modelName}" class="fw-bolder">Model name</td>
+                </tr>
+                <tr>
+                    <td>Brand:</td>
+                    <td><a href="#" th:href="@{/brands/__${model.getBrand().getBrandId()}__}"
+                           th:text="${model.brand.brandName}" class="fw-bolder">Brand</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 </section>
 
 <ul>
-<!--    <a th:if="${isAuthenticated}" href="#"-->
-<!--           th:href="@{__${modelId}__/update}"-->
-<!--           th:text="#{navigation.update-model}">Update</a>-->
+    <!--    <a th:if="${isAuthenticated}" href="#"-->
+    <!--           th:href="@{__${modelId}__/update}"-->
+    <!--           th:text="#{navigation.update-model}">Update</a>-->
 
-<a href="#" th:href="@{__${modelId}__/update}">Update</a>
-<a href="#" th:href="@{__${modelId}__/delete}">Delete</a>
+    <a href="#" th:href="@{__${modelId}__/update}">Update</a>
+    <a href="#" th:href="@{__${modelId}__/delete}">Delete</a>
 </ul>
 
 <footer th:replace="fragments/footer :: footer"></footer>

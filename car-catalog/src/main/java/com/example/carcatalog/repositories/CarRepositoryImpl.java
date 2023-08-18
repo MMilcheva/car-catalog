@@ -118,10 +118,11 @@ public class CarRepositoryImpl extends AbstractCRUDRepository<Car> implements Ca
                 filter.add(" c.transmissionType.transmissionTypeName like :transmissionTypeName ");
                 queryParams.put("transmissionTypeName", "%" + value + "%");
             });
-//            price.ifPresent(value -> {
-//                filter.add(" c.price like :price ");
+            price.ifPresent(value -> {
+                filter.add(" c.price = :price ");
 //                queryParams.put("price", "%" + value + "%");
-//            });
+                queryParams.put("price", value);
+            });
             price.ifPresent(value -> {
                 filter.add(" c.price = :price ");
                 queryParams.put("price", value);

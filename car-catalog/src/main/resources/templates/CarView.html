@@ -66,17 +66,17 @@
 
 <ul>
 
-<!--    <ul>-->
+    <!--    <ul>-->
 
 
-<!--        <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"-->
-<!--                                            href="#"-->
-<!--                                            th:href="@{/cars/new(userIdForCarCreation=${car.user.userId})}"-->
-<!--                                            th:text="#{navigation.create-car}">Create a car</a>-->
-<!--            &lt;!&ndash;                                            th:href="@{/vehicles/new(userIdForVehicleCreation=${vehicle.user.userId})}"&ndash;&gt;-->
-<!--            &lt;!&ndash;                                            th:text="#{navigation.create-vehicle}">Create a vehicle</a>&ndash;&gt;-->
-<!--        </h4>-->
-<!--    </ul>-->
+    <!--        <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"-->
+    <!--                                            href="#"-->
+    <!--                                            th:href="@{/cars/new(userIdForCarCreation=${car.user.userId})}"-->
+    <!--                                            th:text="#{navigation.create-car}">Create a car</a>-->
+    <!--            &lt;!&ndash;                                            th:href="@{/vehicles/new(userIdForVehicleCreation=${vehicle.user.userId})}"&ndash;&gt;-->
+    <!--            &lt;!&ndash;                                            th:text="#{navigation.create-vehicle}">Create a vehicle</a>&ndash;&gt;-->
+    <!--        </h4>-->
+    <!--    </ul>-->
     <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
                                         href="#"
                                         th:href="@{/cars/new(userIdForCarCreation=${car.user.userId})}"
@@ -119,12 +119,11 @@
                 <td class="cell">
                     <a th:text="#{car.label.brand}">Brand:</a>
                 </td>
-                <td class="cell">
-                    <a th:text="${car.getModel().getBrand().getBrandName()}">Brand</a>
-                </td>
-<!--                <td><a href="#" th:href="@{/brands/__${model.getBrand().getBrandId()}__}"-->
-<!--                         th:text="${model.getBrand().getBrandName()}">Brand name</a></td>-->
-
+<!--                                <td class="cell">-->
+<!--                                    <a th:text="${car.getModel().getBrand().getBrandName()}">Brand</a>-->
+<!--                                </td>-->
+                <td class="cell"><a href="#" th:href="@{/brands/__${car.getModel().getBrand().getBrandId()}__}"
+                                    th:text="${car.getModel().getBrand().getBrandName()}" class="fw-bolder">Brand</a></td>
             </tr>
 
             <tr>
