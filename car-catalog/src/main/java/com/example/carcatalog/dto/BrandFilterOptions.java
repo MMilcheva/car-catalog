@@ -9,7 +9,6 @@ public class BrandFilterOptions {
     private Optional<String> sortOrder;
 
 
-
     public BrandFilterOptions(String brandName, String sortBy, String sortOrder) {
         this.brandName = Optional.ofNullable(brandName);
 
@@ -37,7 +36,7 @@ public class BrandFilterOptions {
         this.sortOrder = sortOrder;
     }
 
-        public Optional<String> getBrandName() {
+    public Optional<String> getBrandName() {
         return brandName;
     }
 

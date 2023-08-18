@@ -3,7 +3,7 @@ package com.example.carcatalog.dto;
 public class FuelTypeFilterDto {
 
     private String fuelTypeName;
-      private String sortBy;
+    private String sortBy;
     private String sortOrder;
 
     public FuelTypeFilterDto() {

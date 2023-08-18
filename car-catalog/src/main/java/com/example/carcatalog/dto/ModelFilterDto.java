@@ -3,7 +3,6 @@ package com.example.carcatalog.dto;
 public class ModelFilterDto {
 
 
-
     private Long carModelId;
     private String modelName;
     private String brandName;
@@ -55,4 +54,4 @@ public class ModelFilterDto {
     public void setSortOrder(String sortOrder) {
         this.sortOrder = sortOrder;
     }
-  }
+}

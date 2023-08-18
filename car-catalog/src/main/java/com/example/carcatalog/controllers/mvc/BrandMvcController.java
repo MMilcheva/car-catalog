@@ -4,10 +4,7 @@ import com.example.carcatalog.dto.BrandFilterDto;
 import com.example.carcatalog.dto.BrandFilterOptions;
 import com.example.carcatalog.dto.BrandResponse;
 import com.example.carcatalog.dto.BrandSaveRequest;
-import com.example.carcatalog.exceptions.AuthenticationFailureException;
-import com.example.carcatalog.exceptions.DuplicateEntityException;
-import com.example.carcatalog.exceptions.EntityNotFoundException;
-import com.example.carcatalog.exceptions.UnauthorizedOperationException;
+import com.example.carcatalog.exceptions.*;
 import com.example.carcatalog.helpers.AuthenticationHelper;
 import com.example.carcatalog.helpers.BrandMapper;
 import com.example.carcatalog.models.Brand;
@@ -133,7 +130,6 @@ public class BrandMvcController {
         if (bindingResult.hasErrors()) {
             return "BrandCreateView";
         }
-
         try {
             Brand brand = brandMapper.convertToBrand(brandSaveRequest);
             Brand createdBrand = brandService.createBrand(brand);
@@ -170,6 +166,9 @@ public class BrandMvcController {
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
             return "NotFoundView";
+        } catch (DuplicateEntityException e) {
+            model.addAttribute("error", e.getMessage());
+            return "DuplicateEntityView";
         }
     }
 
@@ -202,9 +201,7 @@ public class BrandMvcController {
         } catch (DuplicateEntityException e) {
             model.addAttribute("error", e.getMessage());
             return "DuplicateEntityView";
-
         }
-
     }
 
     @GetMapping("/{brandId}/delete")
@@ -218,19 +215,18 @@ public class BrandMvcController {
         }
         try {
             List<com.example.carcatalog.models.Model> modelsList = modelService.getAllModelsByBrandId(brandId);
-
-            if (modelsList.size() > 0) {
-                return "NoBrandDeletion";
-            } else {
-                brandService.deleteBrand(brandId, user);
-                return "redirect:/brands";
-            }
+            brandService.deleteBrand(brandId, user);
+            return "redirect:/brands";
+        } catch (BrandCannotBeDeletedException e) {
+            model.addAttribute("error", e.getMessage());
+            return "BrandCannotBeDeleted";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
-            return "NotFoundView2";
+            return "NotFoundView";
         } catch (UnauthorizedOperationException e) {
             model.addAttribute("error", e.getMessage());
             return "AccessDeniedView";
+
         }
     }
 }

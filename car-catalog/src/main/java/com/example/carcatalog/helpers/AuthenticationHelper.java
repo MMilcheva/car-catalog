@@ -16,10 +16,9 @@ import org.springframework.web.server.ResponseStatusException;
 public class AuthenticationHelper {
 
 
+    public static final String AUTHENTICATION_FAILURE_MESSAGE = "Wrong username or password";
     private static final String AUTHORIZATION_HEADER_NAME = "Authorization";
     private static final String INVALID_AUTHENTICATION_ERROR = "Invalid authentication.";
-    public static final String AUTHENTICATION_FAILURE_MESSAGE = "Wrong username or password";
-
     private final UserService userService;
 
     @Autowired
@@ -41,10 +40,10 @@ public class AuthenticationHelper {
         }
     }
 
-    public User tryGetUserWithSession (HttpSession session){
+    public User tryGetUserWithSession(HttpSession session) {
         String currentUser = (String) session.getAttribute("currentUser");
 
-        if(currentUser == null){
+        if (currentUser == null) {
             throw new AuthenticationFailureException("No user logged in");
         }
 

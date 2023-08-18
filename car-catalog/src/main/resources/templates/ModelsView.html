@@ -12,8 +12,8 @@
     <link href="/img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Ubuntu:wght@400;500&display=swap"
           rel="stylesheet">
 
@@ -38,9 +38,9 @@
 <nav th:replace="/fragments/navbar :: navbar">Header fragment</nav>
 
 <!-- Spinner Start -->
-<div id="spinner"
-     class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+<div class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+     id="spinner">
+    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
         <span class="sr-only">Loading...</span>
     </div>
 </div>
@@ -55,7 +55,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb justify-content-center text-uppercase">
                     <li class="breadcrumb-item"><a href="#" th:href="@{/}">Home</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page">Models</li>
+                    <li aria-current="page" class="breadcrumb-item text-white active">Models</li>
                 </ol>
             </nav>
         </div>
@@ -64,56 +64,56 @@
 <!-- Page Header End -->
 <ul>
 
-    <h4><a th:if="${isAuthenticated && #strings.toString(session.admin) == 'admin'}" href="#" th:href="@{/brands/new}"
+    <h4><a href="#" th:href="@{/brands/new}" th:if="${isAuthenticated && #strings.toString(session.admin) == 'admin'}"
            th:text="#{navigation.create-brand}">Create a brand</a></h4>
 
-    <h4><a th:if="${isAuthenticated && #strings.toString(session.admin) == 'admin'}" href="#"
-           th:href="@{/models/new}"
+    <h4><a href="#" th:href="@{/models/new}"
+           th:if="${isAuthenticated && #strings.toString(session.admin) == 'admin'}"
            th:text="#{navigation.create-model}">Create a model</a></h4>
 </ul>
 
-<form action="#" th:action="@{/models}" th:object="${modelFilterOptions}" method="get"
-      style="display: flex; flex-wrap: wrap; justify-content: center;">
-    <label th:text="#{model.label.filter-options}"
-           style="flex-basis: 100%; display: flex; justify-content: center; font-size: 1.7rem;">Filter options</label>
+<form action="#" method="get" style="display: flex; flex-wrap: wrap; justify-content: center;" th:action="@{/models}"
+      th:object="${modelFilterOptions}">
+    <label style="flex-basis: 100%; display: flex; justify-content: center; font-size: 1.7rem;"
+           th:text="#{model.label.filter-options}">Filter options</label>
 
-    <input type="text" placeholder="Model name" th:field="*{modelName}"
-           style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;"/>
-    <input type="text" placeholder="Brand name" th:field="*{brandName}"
-           style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;"/>
+    <input placeholder="Model name" style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;" th:field="*{modelName}"
+           type="text"/>
+    <input placeholder="Brand name" style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;" th:field="*{brandName}"
+           type="text"/>
 
-    <select th:field="*{sortBy}"
-            style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;">
+    <select style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;"
+            th:field="*{sortBy}">
         <option value="">Sort by</option>
         <option th:value="modelName">Model name</option>
         <option th:value="brandName">Brand name</option>
         <!--        <option th:value="isArchived">isArchived</option>-->
     </select>
 
-    <select th:field="*{sortOrder}"
-            style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;">
+    <select style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;"
+            th:field="*{sortOrder}">
         <option value="">Sort order</option>
         <option th:value="asc">Ascending</option>
         <option th:value="desc">Descending</option>
     </select>
 
-    <input type="submit" value="Search" style="flex-basis: 100%; margin-bottom: 1rem;"/>
+    <input style="flex-basis: 100%; margin-bottom: 1rem;" type="submit" value="Search"/>
 </form>
 
 <!-- Section-->
 
 <ul>
-    <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
-                                        href="#"
-                                        th:href="@{/brands/new}" th:text="#{navigation.create-brand}">Create a brand</a>
+    <h4 style="margin-bottom: 50px;"><a href="#"
+                                        th:href="@{/brands/new}"
+                                        th:if="${isAuthenticated}" th:text="#{navigation.create-brand}">Create a brand</a>
     </h4>
-    <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
-                                        href="#"
-                                        th:href="@{/models/new}" th:text="#{navigation.create-model}">Create a model</a>
+    <h4 style="margin-bottom: 50px;"><a href="#"
+                                        th:href="@{/models/new}"
+                                        th:if="${isAuthenticated}" th:text="#{navigation.create-model}">Create a model</a>
     </h4>
-    <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
-                                        href="#"
-                                        th:href="@{/cars/new}" th:text="#{navigation.create-car}">Create a car</a>
+    <h4 style="margin-bottom: 50px;"><a href="#"
+                                        th:href="@{/cars/new}"
+                                        th:if="${isAuthenticated}" th:text="#{navigation.create-car}">Create a car</a>
     </h4>
 </ul>
 
@@ -149,7 +149,7 @@
 
 
 <!-- Back to Top -->
-<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+<a class="btn btn-lg btn-primary btn-lg-square back-to-top" href="#"><i class="bi bi-arrow-up"></i></a>
 
 
 <!-- JavaScript Libraries -->

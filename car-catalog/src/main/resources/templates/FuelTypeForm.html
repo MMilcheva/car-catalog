@@ -6,14 +6,15 @@
 </head>
 <body>
 
-<form th:fragment="fuel-type-form" action="#" th:action="@{__${requestURI}__}" th:object="${fuelTypeSaveRequest}" method="post">
-  <label th:text="#{fuel-type.label.fuelTypeName}">Fuel type name</label>
-  <br/>
-  <input type="text" th:field="*{fuelTypeName}"/>
-  <label class="error" th:errors="*{fuelTypeName}">Fuel type name error placeholder</label>
-  <br/><br/>
+<form action="#" method="post" th:action="@{__${requestURI}__}" th:fragment="fuel-type-form"
+      th:object="${fuelTypeSaveRequest}">
+    <label th:text="#{fuel-type.label.fuelTypeName}">Fuel type name</label>
+    <br/>
+    <input th:field="*{fuelTypeName}" type="text"/>
+    <label class="error" th:errors="*{fuelTypeName}">Fuel type name error placeholder</label>
+    <br/><br/>
 
-  <input type="submit" value="Save"/>
+    <input type="submit" value="Save"/>
 </form>
 
 </body>

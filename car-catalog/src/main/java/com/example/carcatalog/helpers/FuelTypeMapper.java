@@ -3,9 +3,7 @@ package com.example.carcatalog.helpers;
 
 import com.example.carcatalog.dto.FuelTypeResponse;
 import com.example.carcatalog.dto.FuelTypeSaveRequest;
-
 import com.example.carcatalog.models.FuelType;
-
 import com.example.carcatalog.services.contracts.FuelTypeService;
 import org.springframework.stereotype.Component;
 
@@ -45,11 +43,12 @@ public class FuelTypeMapper {
 
         return fuelTypeResponse;
     }
+
     public List<FuelTypeResponse> convertToFuelTypeResponses(List<FuelType> fuelTypes) {
 
         List<FuelTypeResponse> fuelTypeResponses = new ArrayList<>();
 
-        fuelTypes.forEach(ft->fuelTypeResponses.add(convertToFuelTypeResponse(ft)));
+        fuelTypes.forEach(ft -> fuelTypeResponses.add(convertToFuelTypeResponse(ft)));
         return fuelTypeResponses;
     }
 }

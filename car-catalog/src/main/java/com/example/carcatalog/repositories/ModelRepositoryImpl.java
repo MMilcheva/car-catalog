@@ -1,7 +1,7 @@
 package com.example.carcatalog.repositories;
 
-import com.example.carcatalog.models.Model;
 import com.example.carcatalog.dto.ModelFilterOptions;
+import com.example.carcatalog.models.Model;
 import com.example.carcatalog.repositories.contracts.ModelRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -43,6 +43,7 @@ public class ModelRepositoryImpl extends AbstractCRUDRepository<Model> implement
             return model.list().get(0);
         }
     }
+
     @Override
     public List<Model> getAllModelsByBrandId(Long brandId) {
 

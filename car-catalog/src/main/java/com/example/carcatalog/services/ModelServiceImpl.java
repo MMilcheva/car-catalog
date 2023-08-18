@@ -1,7 +1,9 @@
 package com.example.carcatalog.services;
 
-import com.example.carcatalog.models.Model;
 import com.example.carcatalog.dto.ModelFilterOptions;
+import com.example.carcatalog.exceptions.DuplicateEntityException;
+import com.example.carcatalog.models.FuelType;
+import com.example.carcatalog.models.Model;
 import com.example.carcatalog.models.User;
 import com.example.carcatalog.repositories.contracts.BrandRepository;
 import com.example.carcatalog.repositories.contracts.ModelRepository;
@@ -29,14 +31,12 @@ public class ModelServiceImpl implements ModelService {
 
         return modelRepository.getById(modelToBeUpdatedId);
     }
+
     @Override
     public Model getModelByName(String name) {
         return modelRepository.getModelByName(name);
     }
-//    @Override
-//    public Model getModelByName(String name) {
-//        return modelRepository.getByName(name);
-//    }
+
 
     @Override
     public List<Model> getAllModels(Optional<String> search) {
@@ -48,6 +48,7 @@ public class ModelServiceImpl implements ModelService {
     public List<Model> getAllModelsFilter(ModelFilterOptions modelFilterOptions) {
         return modelRepository.getAllModelsFilter(modelFilterOptions);
     }
+
     @Override
     public List<Model> getAllModelsByBrandId(Long brandId) {
         return modelRepository.getAllModelsByBrandId(brandId);
@@ -61,19 +62,30 @@ public class ModelServiceImpl implements ModelService {
 
     @Override
     public Model createModel(Model model) {
-        modelRepository.create(model);
-        return model;
+        Model existingModel = modelRepository.getModelByName(model.getModelName());
+        if (existingModel != null) {
+            throw new DuplicateEntityException("Model", "name", existingModel.getModelName());
+        } else {
+            modelRepository.create(model);
+            return model;
+        }
+
     }
 
     @Override
     public Model updateModel(Model model) {
+        Model existingModel = modelRepository.getModelByName(model.getModelName());
+        if (existingModel != null) {
+            throw new DuplicateEntityException("Model", "name", existingModel.getModelName());
+        } else {
+            modelRepository.update(model);
+            return model;
+        }
 
-        modelRepository.update(model);
-        return model;
     }
 
     @Override
-    public void block(User user, Long modelId){
+    public void block(User user, Long modelId) {
         Model model = modelRepository.getById(modelId);
 
         modelRepository.block(model.getModelId());

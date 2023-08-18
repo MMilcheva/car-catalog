@@ -43,7 +43,7 @@ public class Car {
 
     @NotNull(message = "Price cannot be empty")
     @Positive(message = "Price must be positive")
-    @Column(name="price")
+    @Column(name = "price")
     private Double price;
 
     @NotNull(message = "Date of registration cannot be empty")
@@ -59,6 +59,7 @@ public class Car {
 
     @Column(name = "remarks")
     private String remarks;
+
     public Car() {
     }
 

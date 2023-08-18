@@ -1,7 +1,7 @@
 package com.example.carcatalog.repositories.contracts;
 
-import com.example.carcatalog.models.Car;
 import com.example.carcatalog.dto.CarFilterOptions;
+import com.example.carcatalog.models.Car;
 
 import java.time.LocalDate;
 import java.util.List;

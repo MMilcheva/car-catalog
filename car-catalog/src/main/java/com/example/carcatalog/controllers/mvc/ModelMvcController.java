@@ -192,7 +192,7 @@ public class ModelMvcController {
             modelToBeUpdated.setModelId(modelId);
             Model savedModel = modelService.updateModel(modelToBeUpdated);
 
-            return "redirect:/models/"+modelId;
+            return "redirect:/models/" + modelId;
 
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
@@ -221,7 +221,7 @@ public class ModelMvcController {
             return "redirect:/models";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
-            return "NotFoundView2";
+            return "NotFoundView";
         } catch (UnauthorizedOperationException e) {
             model.addAttribute("error", e.getMessage());
             return "AccessDeniedView";

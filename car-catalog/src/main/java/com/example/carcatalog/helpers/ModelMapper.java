@@ -40,6 +40,7 @@ public class ModelMapper {
         modelResponse.setBrandName(model.getBrand().getBrandName());
         return modelResponse;
     }
+
     public List<ModelResponse> convertToModelResponses(List<Model> models) {
 
         List<ModelResponse> modelRespons = new ArrayList<>();

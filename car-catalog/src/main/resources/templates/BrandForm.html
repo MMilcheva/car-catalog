@@ -6,14 +6,15 @@
 </head>
 <body>
 
-<form th:fragment="brand-form" action="#" th:action="@{__${requestURI}__}" th:object="${brandSaveRequest}" method="post">
-  <label th:text="#{brand.label.brandName}">Brand name</label>
-  <br/>
-  <input type="text" th:field="*{brandName}"/>
-  <label class="error" th:errors="*{brandName}">Brand name error placeholder</label>
-  <br/><br/>
+<form action="#" method="post" th:action="@{__${requestURI}__}" th:fragment="brand-form"
+      th:object="${brandSaveRequest}">
+    <label th:text="#{brand.label.brandName}">Brand name</label>
+    <br/>
+    <input th:field="*{brandName}" type="text"/>
+    <label class="error" th:errors="*{brandName}">Brand name error placeholder</label>
+    <br/><br/>
 
-  <input type="submit" value="Save"/>
+    <input type="submit" value="Save"/>
 </form>
 
 </body>

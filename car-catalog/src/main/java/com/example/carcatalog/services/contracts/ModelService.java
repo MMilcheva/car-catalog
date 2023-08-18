@@ -1,7 +1,7 @@
 package com.example.carcatalog.services.contracts;
 
-import com.example.carcatalog.models.Model;
 import com.example.carcatalog.dto.ModelFilterOptions;
+import com.example.carcatalog.models.Model;
 import com.example.carcatalog.models.User;
 
 import java.util.List;

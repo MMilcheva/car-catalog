@@ -1,7 +1,7 @@
 package com.example.carcatalog.repositories.contracts;
 
-import com.example.carcatalog.models.FuelType;
 import com.example.carcatalog.dto.FuelTypeFilterOptions;
+import com.example.carcatalog.models.FuelType;
 
 import java.util.List;
 import java.util.Optional;

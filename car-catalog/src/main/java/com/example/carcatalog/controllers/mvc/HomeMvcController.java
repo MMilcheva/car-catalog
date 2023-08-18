@@ -29,8 +29,9 @@ public class HomeMvcController {
     @GetMapping
     public String showHomePage(Model model) {
 
-          return "HomeView";
+        return "HomeView";
     }
+
     @GetMapping("/error")
     public String showHomePageErrorHandler(Model model) {
 

@@ -22,12 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/auth")
 public class AuthenticationMvcController {
 
-    public static final String BLOCKED_USER = "Username does not exist";
     private final AuthenticationHelper authenticationHelper;
 
     private final UserService userService;
-
-
 
 
     private final AuthenticationMapper mapper;

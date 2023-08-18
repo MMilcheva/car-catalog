@@ -13,6 +13,7 @@ public class CarResponse {
     private Double price;
     private String remarks;
     private String userName;
+
     public CarResponse() {
     }
 

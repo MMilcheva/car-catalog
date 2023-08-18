@@ -1,7 +1,7 @@
 package com.example.carcatalog.repositories;
 
-import com.example.carcatalog.models.TransmissionType;
 import com.example.carcatalog.dto.TransmissionTypeFilterOptions;
+import com.example.carcatalog.models.TransmissionType;
 import com.example.carcatalog.repositories.contracts.TransmissionTypeRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -45,6 +45,7 @@ public class TransmissionTypeRepositoryImpl extends AbstractCRUDRepository<Trans
             return query.list();
         }
     }
+
     @Override
     public TransmissionType getTransmissionTypeByName(String transmissionTypeName) {
         try (Session session = sessionFactory.openSession()) {
@@ -73,8 +74,8 @@ public class TransmissionTypeRepositoryImpl extends AbstractCRUDRepository<Trans
 
     @Override
     public List<TransmissionType> filter(Optional<String> transmissionTypeName,
-                                 Optional<String> sortBy,
-                                 Optional<String> sortOrder) {
+                                         Optional<String> sortBy,
+                                         Optional<String> sortOrder) {
 
         try (Session session = sessionFactory.openSession()) {
             StringBuilder queryString = new StringBuilder(" Select tt from TransmissionType tt ");

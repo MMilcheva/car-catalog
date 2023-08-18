@@ -3,66 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <title>Car form</title>
-    <link href="../static/Styles.css" th:href="@{/Styles.css}" rel="stylesheet"/>
+    <link href="../static/Styles.css" rel="stylesheet" th:href="@{/Styles.css}"/>
 </head>
 <body>
 
-<form th:fragment="car-form" action="#" th:action="@{__${requestURI}__}" th:object="${carSaveRequest}"
-      method="post">
+<form action="#" method="post" th:action="@{__${requestURI}__}" th:fragment="car-form"
+      th:object="${carSaveRequest}">
 
     <label th:text="#{car.label.vin}">VIN</label>
     <br/>
-    <input required type="text" th:field="*{vin}"/>
+    <input required th:field="*{vin}" type="text"/>
     <label class="error" th:errors="*{vin}">VIN error placeholder</label>
     <br/><br/>
 
 
     <label th:text="#{car.label.model-name}">Model name</label>
     <br/>
-    <select name="modelName" required th:field="*{modelName}" id="dropDownList2">
+    <select id="dropDownList2" name="modelName" required th:field="*{modelName}">
         <option value="">select option</option>
-        <option th:each="model : ${models}" th:value="${model.modelName}"
-                th:text="${model.modelName}"></option>
+        <option th:each="model : ${models}" th:text="${model.modelName}"
+                th:value="${model.modelName}"></option>
     </select>
     <label class="error" th:errors="*{modelName}">Model error placeholder</label>
     <br/><br/>
 
     <label th:text="#{car.label.price}">Price</label>
     <br/>
-    <input required type="text" th:field="*{price}"/>
+    <input required th:field="*{price}" type="text"/>
     <label class="error" th:errors="*{price}">Price error placeholder</label>
     <br/><br/>
 
 
     <label th:text="#{car.label.fuelType}">Fuel type</label>
     <br/>
-    <select name="fuelTypeName" required th:field="*{fuelTypeName}" id="dropDownList">
+    <select id="dropDownList" name="fuelTypeName" required th:field="*{fuelTypeName}">
         <option value="">select option</option>
-        <option th:each="fuelType : ${fuelTypes}" th:value="${fuelType.fuelTypeName}"
-                th:text="${fuelType.fuelTypeName}"></option>
+        <option th:each="fuelType : ${fuelTypes}" th:text="${fuelType.fuelTypeName}"
+                th:value="${fuelType.fuelTypeName}"></option>
     </select>
     <br/><br/>
 
 
     <label th:text="#{car.label.transmissionType}">Transmission type</label>
     <br/>
-    <select name ="transmissionTypeName" required th:field="*{transmissionTypeName}" id="dropDownList1">
+    <select id="dropDownList1" name="transmissionTypeName" required th:field="*{transmissionTypeName}">
         <option value="">select option</option>
-        <option th:each="transmissionType : ${transmissionTypes}" th:value="${transmissionType.transmissionTypeName}"
-                th:text="${transmissionType.transmissionTypeName}"></option>
+        <option th:each="transmissionType : ${transmissionTypes}" th:text="${transmissionType.transmissionTypeName}"
+                th:value="${transmissionType.transmissionTypeName}"></option>
     </select>
 
     <br/><br/>
 
     <label th:text="#{car.label.registrationDate}">Registration date</label>
     <br/>
-    <input required type="date" placeholder="YYYY-MM-DD" th:field="*{registrationDate}"/>
+    <input placeholder="YYYY-MM-DD" required th:field="*{registrationDate}" type="date"/>
     <label class="error" th:errors="*{registrationDate}">Registration date error placeholder</label>
     <br/><br/>
 
     <label th:text="#{car.label.remarks}">Remarks</label>
     <br/>
-    <textarea id="remarks" name="remarks" rows="4" cols="50" maxlength="200"></textarea>
+    <textarea cols="50" id="remarks" maxlength="200" name="remarks" rows="4"></textarea>
     <br/>
     <label class="error" th:errors="*{remarks}">Remarks error placeholder</label>
     <br/><br/>

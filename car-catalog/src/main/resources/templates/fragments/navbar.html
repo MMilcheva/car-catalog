@@ -6,42 +6,43 @@
 </head>
 <body>
 <!-- Navbar Start -->
-<nav th:fragment="navbar" class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-    <a href="/" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+<nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0" th:fragment="navbar">
+    <a class="navbar-brand d-flex align-items-center px-4 px-lg-5" href="/">
         <h2 class="m-0 text-primary"><i class="fa fa-car me-3"></i>Car catalog</h2>
     </a>
 
-    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+    <button class="navbar-toggler me-4" data-bs-target="#navbarCollapse" data-bs-toggle="collapse" type="button">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse1">
         <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="index.html" class="nav-item nav-link active" th:href="@{/}">Home</a>
+            <a class="nav-item nav-link active" href="index.html" th:href="@{/}">Home</a>
 
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
                     <div class="nav-item dropdown">
-                        <a th:if="${isAuthenticated}" href="#" class="nav-link dropdown-toggle"
-                           data-bs-toggle="dropdown">Pages</a>
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                           th:if="${isAuthenticated}">Pages</a>
                         <div class="dropdown-menu fade-up m-0">
-                            <a href="#" th:href="@{/brands}" th:text="#{brands.label.brands}"
-                               class="dropdown-item">Brands</a>
-                            <a href="#" th:href="@{/models}" th:text="#{cars.label.models}"
-                               class="dropdown-item">Models</a>
-                            <a href="#" th:href="@{/cars/my-cars}" th:text="#{cars.label.my-cars}"
-                               class="dropdown-item">Cars</a>
-                            <a href="#" th:href="@{/fuel-types}" th:text="#{fuel-types.label.fuel-types}"
-                               class="dropdown-item">Fuel types</a>
-                            <a href="#" th:href="@{/transmission-types}" th:text="#{transmission-types.label.transmission-types}"
-                               class="dropdown-item">Transmission types</a>
+                            <a class="dropdown-item" href="#" th:href="@{/brands}"
+                               th:text="#{brands.label.brands}">Brands</a>
+                            <a class="dropdown-item" href="#" th:href="@{/models}"
+                               th:text="#{cars.label.models}">Models</a>
+                            <a class="dropdown-item" href="#" th:href="@{/cars/my-cars}"
+                               th:text="#{cars.label.my-cars}">Cars</a>
+                            <a class="dropdown-item" href="#" th:href="@{/fuel-types}"
+                               th:text="#{fuel-types.label.fuel-types}">Fuel types</a>
+                            <a class="dropdown-item" href="#"
+                               th:href="@{/transmission-types}"
+                               th:text="#{transmission-types.label.transmission-types}">Transmission types</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <a th:unless="${isAuthenticated}" th:href="@{/auth/login}" href="#"
-               class="nav-item nav-link">Login</a>
-            <a th:if="${isAuthenticated}" th:href="@{/auth/logout}" href="#" class="nav-item nav-link">Logout</a>
+            <a class="nav-item nav-link" href="#" th:href="@{/auth/login}"
+               th:unless="${isAuthenticated}">Login</a>
+            <a class="nav-item nav-link" href="#" th:href="@{/auth/logout}" th:if="${isAuthenticated}">Logout</a>
         </div>
     </div>
 </nav>

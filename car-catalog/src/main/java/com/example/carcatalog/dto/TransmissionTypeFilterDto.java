@@ -3,7 +3,7 @@ package com.example.carcatalog.dto;
 public class TransmissionTypeFilterDto {
 
     private String transmissionTypeName;
-      private String sortBy;
+    private String sortBy;
     private String sortOrder;
 
     public TransmissionTypeFilterDto() {

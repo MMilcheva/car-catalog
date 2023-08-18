@@ -1,8 +1,8 @@
 package com.example.carcatalog.repositories;
 
+import com.example.carcatalog.dto.BrandFilterOptions;
 import com.example.carcatalog.exceptions.EntityNotFoundException;
 import com.example.carcatalog.models.Brand;
-import com.example.carcatalog.dto.BrandFilterOptions;
 import com.example.carcatalog.repositories.contracts.BrandRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -28,6 +28,7 @@ public class BrandRepositoryImpl extends AbstractCRUDRepository<Brand> implement
             return query.list();
         }
     }
+
     @Override
     public List<Brand> getAllBrandsFilter(BrandFilterOptions brandFilterOptions) {
         return filter(brandFilterOptions.getBrandName(), brandFilterOptions.getSortBy(), brandFilterOptions.getSortOrder());

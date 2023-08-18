@@ -43,11 +43,12 @@ public class TransmissionTypeMapper {
 
         return transmissionTypeResponse;
     }
+
     public List<TransmissionTypeResponse> convertToTransmissionTypeResponses(List<TransmissionType> transmissionTypes) {
 
         List<TransmissionTypeResponse> transmissionTypeResponses = new ArrayList<>();
 
-        transmissionTypes.forEach(ft->transmissionTypeResponses.add(convertToTransmissionTypeResponse(ft)));
+        transmissionTypes.forEach(ft -> transmissionTypeResponses.add(convertToTransmissionTypeResponse(ft)));
         return transmissionTypeResponses;
     }
 }

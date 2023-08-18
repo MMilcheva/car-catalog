@@ -11,11 +11,14 @@ public class ModelSaveRequest {
     @NotNull
     @Size(min = 2, max = 32, message = "Brand name must be between 2 and 32 symbols")
     private String brandName;
+
     public ModelSaveRequest() {
     }
+
     public String getModelName() {
         return modelName;
     }
+
     public void setModelName(String modelName) {
         this.modelName = modelName;
     }
@@ -28,4 +31,4 @@ public class ModelSaveRequest {
         this.brandName = brandName;
     }
 
-   }
+}

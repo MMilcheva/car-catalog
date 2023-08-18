@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-           }
+    }
 
     @Override
     public List<User> getAll(Optional<String> search) {
@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService {
     public User getUserByUsername(String username) {
         return userRepository.getByName(username);
     }
+
     @Override
     public User getUserByEmail(String email) {
         return userRepository.getUserByEmail(email);

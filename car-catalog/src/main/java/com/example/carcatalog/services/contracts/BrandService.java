@@ -1,7 +1,7 @@
 package com.example.carcatalog.services.contracts;
 
-import com.example.carcatalog.models.Brand;
 import com.example.carcatalog.dto.BrandFilterOptions;
+import com.example.carcatalog.models.Brand;
 import com.example.carcatalog.models.User;
 
 import java.util.List;
@@ -21,8 +21,6 @@ public interface BrandService {
     void deleteBrand(long brandId, User user);
 
     Brand createBrand(Brand brand);
-
-    Brand checkIfBrandExists(Brand brand);
 
     Brand updateBrand(Brand brand);
 }

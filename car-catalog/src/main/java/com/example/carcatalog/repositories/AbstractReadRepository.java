@@ -22,10 +22,12 @@ public class AbstractReadRepository<T> implements BaseReadRepository<T> {
             return session.createQuery(String.format("from %s", clazz.getName()), clazz).list();
         }
     }
+
     @Override
     public T getById(long id) {
         return getByField("id", id);
     }
+
     @Override
     public T getByName(String name) {
         return getByField("name", name);

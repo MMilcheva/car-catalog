@@ -200,7 +200,7 @@ public class TransmissionTypeMvcController {
             return "redirect:/transmission-types";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
-            return "NotFoundView2";
+            return "NotFoundView";
         } catch (UnauthorizedOperationException e) {
             model.addAttribute("error", e.getMessage());
             return "AccessDeniedView";

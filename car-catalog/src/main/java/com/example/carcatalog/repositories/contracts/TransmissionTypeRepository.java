@@ -1,7 +1,7 @@
 package com.example.carcatalog.repositories.contracts;
 
-import com.example.carcatalog.models.TransmissionType;
 import com.example.carcatalog.dto.TransmissionTypeFilterOptions;
+import com.example.carcatalog.models.TransmissionType;
 
 import java.util.List;
 import java.util.Optional;

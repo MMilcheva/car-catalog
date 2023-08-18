@@ -1,7 +1,7 @@
 package com.example.carcatalog.repositories;
 
-import com.example.carcatalog.models.FuelType;
 import com.example.carcatalog.dto.FuelTypeFilterOptions;
+import com.example.carcatalog.models.FuelType;
 import com.example.carcatalog.repositories.contracts.FuelTypeRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -31,7 +31,6 @@ public class FuelTypeRepositoryImpl extends AbstractCRUDRepository<FuelType> imp
             return query.list();
         }
     }
-
 
 
     @Override

@@ -1,6 +1,9 @@
 package com.example.carcatalog.controllers.mvc;
 
-import com.example.carcatalog.dto.*;
+import com.example.carcatalog.dto.FuelTypeFilterDto;
+import com.example.carcatalog.dto.FuelTypeFilterOptions;
+import com.example.carcatalog.dto.FuelTypeResponse;
+import com.example.carcatalog.dto.FuelTypeSaveRequest;
 import com.example.carcatalog.exceptions.AuthenticationFailureException;
 import com.example.carcatalog.exceptions.DuplicateEntityException;
 import com.example.carcatalog.exceptions.EntityNotFoundException;
@@ -22,10 +25,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/fuel-types")
 public class FuelTypeMvcController {
 
-   private final FuelTypeService fuelTypeService;
-   private final AuthenticationHelper authenticationHelper;
+    private final FuelTypeService fuelTypeService;
+    private final AuthenticationHelper authenticationHelper;
 
-   private final FuelTypeMapper fuelTypeMapper;
+    private final FuelTypeMapper fuelTypeMapper;
 
     public FuelTypeMvcController(FuelTypeService fuelTypeService, AuthenticationHelper authenticationHelper, FuelTypeMapper fuelTypeMapper) {
         this.fuelTypeService = fuelTypeService;
@@ -60,7 +63,7 @@ public class FuelTypeMvcController {
 
     @GetMapping
     public String filterAllFuelTypes(@ModelAttribute("fuelTypeFilterOptions") FuelTypeFilterDto fuelTypeFilterDto,
-                                  Model model, HttpSession session) {
+                                     Model model, HttpSession session) {
         User user;
         try {
             user = authenticationHelper.tryGetUserWithSession(session);
@@ -97,8 +100,8 @@ public class FuelTypeMvcController {
 
     @PostMapping("/new")
     public String createFuelType(@Valid @ModelAttribute FuelTypeSaveRequest fuelTypeSaveRequest,
-                              BindingResult bindingResult,
-                              Model model, HttpSession session) {
+                                 BindingResult bindingResult,
+                                 Model model, HttpSession session) {
 
         User user;
         try {
@@ -197,7 +200,7 @@ public class FuelTypeMvcController {
             return "redirect:/fuel-types";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
-            return "NotFoundView2";
+            return "NotFoundView";
         } catch (UnauthorizedOperationException e) {
             model.addAttribute("error", e.getMessage());
             return "AccessDeniedView";

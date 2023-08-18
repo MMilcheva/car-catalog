@@ -13,6 +13,7 @@ public class FuelTypeFilterOptions {
         this.sortBy = Optional.ofNullable(sortBy);
         this.sortOrder = Optional.ofNullable(sortOrder);
     }
+
     public FuelTypeFilterOptions() {
         this(null, null, null);
     }

@@ -1,11 +1,13 @@
 package com.example.carcatalog.services;
 
+import com.example.carcatalog.dto.BrandFilterOptions;
+import com.example.carcatalog.exceptions.BrandCannotBeDeletedException;
 import com.example.carcatalog.exceptions.DuplicateEntityException;
 import com.example.carcatalog.models.Brand;
-import com.example.carcatalog.dto.BrandFilterOptions;
+import com.example.carcatalog.models.Model;
 import com.example.carcatalog.models.User;
 import com.example.carcatalog.repositories.contracts.BrandRepository;
-import com.example.carcatalog.repositories.contracts.UserRepository;
+import com.example.carcatalog.repositories.contracts.ModelRepository;
 import com.example.carcatalog.services.contracts.BrandService;
 import org.springframework.stereotype.Service;
 
@@ -16,22 +18,20 @@ import java.util.Optional;
 public class BrandServiceImpl implements BrandService {
 
     private final BrandRepository brandRepository;
-    private final UserRepository userRepository;
+    private final ModelRepository modelRepository;
 
-    public BrandServiceImpl(BrandRepository brandRepository, UserRepository userRepository) {
+    public BrandServiceImpl(BrandRepository brandRepository, ModelRepository modelRepository) {
         this.brandRepository = brandRepository;
-        this.userRepository = userRepository;
+        this.modelRepository = modelRepository;
     }
 
     @Override
     public Brand getBrandById(Long brandId) {
-
         return brandRepository.getById(brandId);
     }
 
     @Override
     public Brand getBrandByName(String brandName) {
-
         return brandRepository.getByField("brandName", brandName);
     }
 
@@ -51,52 +51,36 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public void deleteBrand(long brandId, User user) {
-        brandRepository.delete(brandId);
-    }
-
-
-    @Override
     public Brand createBrand(Brand brand) {
         List<Brand> existingBrands = brandRepository.findByBrandName(brand.getBrandName());
         if (!existingBrands.isEmpty()) {
-            // Use the first existing brand
-            throw new DuplicateEntityException("brand", "name", existingBrands.get(0).getBrandName());
+            throw new DuplicateEntityException("Brand", "name", existingBrands.get(0).getBrandName());
         } else {
             brandRepository.create(brand);
             return brand;
         }
     }
 
-//    @Override
-//    public Brand createBrand(Brand brand) {
-//        List<Brand> existingBrands = brandRepository.findByBrandName(brand.getBrandName());
-//        if (!existingBrands.isEmpty()) {
-//            // Use the first existing brand
-//            return existingBrands.get(0);
-//        } else {
-//            brandRepository.create(brand);
-//            return brand;
-//        }
-//    }
-    public Brand checkIfBrandExists(Brand brand) {
-        Brand existingBrand = brandRepository.findBrandByName(brand.getBrandName());
-        if (existingBrand != null) {
-            return existingBrand;
+    @Override
+    public Brand updateBrand(Brand brand) {
+        List<Brand> existingBrands = brandRepository.findByBrandName(brand.getBrandName());
+        if (!existingBrands.isEmpty()) {
+            throw new DuplicateEntityException("Brand", "name", existingBrands.get(0).getBrandName());
+        } else {
+            brandRepository.update(brand);
+            return brand;
         }
-        return brand;
     }
 
     @Override
-    public Brand updateBrand(Brand brand) {
-        brandRepository.update(brand);
-        return brand;
+    public void deleteBrand(long brandId, User user) {
+        List<Model> existingModels = modelRepository.getAllModelsByBrandId(brandId);
+        if (!existingModels.isEmpty()) {
+            throw new BrandCannotBeDeletedException("Brand", "name", brandRepository.getByField("brandId", brandId).getBrandName());
+        } else {
+            brandRepository.delete(brandId);
+        }
+
     }
 
-//    private void checkModifyPermissions(User user) {
-//        String str = "admin";
-//        if (!(user.getRole().getRoleName().equals(str))) {
-//            throw new AuthorizationException(MODIFY_BRAND_ERROR_MESSAGE);
-//        }
-//    }
 }

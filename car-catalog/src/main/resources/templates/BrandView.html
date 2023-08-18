@@ -11,8 +11,8 @@
     <link href="/img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Ubuntu:wght@400;500&display=swap"
           rel="stylesheet">
 
@@ -38,9 +38,9 @@
 <nav th:replace="/fragments/navbar :: navbar">Header fragment</nav>
 
 <!-- Spinner Start -->
-<div id="spinner"
-     class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+<div class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+     id="spinner">
+    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
         <span class="sr-only">Loading...</span>
     </div>
 </div>
@@ -56,20 +56,20 @@
                 <ol class="breadcrumb justify-content-center text-uppercase">
                     <li class="breadcrumb-item"><a href="#" th:href="@{/}">Home</a></li>
                     <li class="breadcrumb-item"><a href="#" th:href="@{/brands}">Brands</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page">Brand info</li>
+                    <li aria-current="page" class="breadcrumb-item text-white active">Brand info</li>
                 </ol>
             </nav>
         </div>
     </div>
 </div>
 <!-- Page Header End -->
-<h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
-                                    href="#"
-                                    th:href="@{/models/new}" th:text="#{navigation.create-model}">Create a model</a>
+<h4 style="margin-bottom: 50px;"><a href="#"
+                                    th:href="@{/models/new}"
+                                    th:if="${isAuthenticated}" th:text="#{navigation.create-model}">Create a model</a>
 </h4>
-<h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
-                                    href="#"
-                                    th:href="@{/cars/new}" th:text="#{navigation.create-car}">Create a car</a>
+<h4 style="margin-bottom: 50px;"><a href="#"
+                                    th:href="@{/cars/new}"
+                                    th:if="${isAuthenticated}" th:text="#{navigation.create-car}">Create a car</a>
 </h4>
 <div class="container text-center">
     <p class="display-6 text-black-70 mb-3 ">Brand</p>
@@ -89,7 +89,7 @@
                 <tbody>
                 <tr>
                     <td>Brand name:</td>
-                    <td th:text="${brand.brandName}" class="fw-bolder">Brand name</td>
+                    <td class="fw-bolder" th:text="${brand.brandName}">Brand name</td>
                 </tr>
                 <tr>
                     <td>Models:</td>
@@ -108,15 +108,15 @@
 </section>
 
 <ul>
-<a href="#" th:href="@{__${brandId}__/update}">Update</a>
-<a href="#" th:href="@{__${brandId}__/delete}">Delete</a>
+    <a href="#" th:href="@{__${brandId}__/update}">Update</a>
+    <a href="#" th:href="@{__${brandId}__/delete}">Delete</a>
 </ul>
 
 <footer th:replace="fragments/footer :: footer"></footer>
 
 
 <!-- Back to Top -->
-<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+<a class="btn btn-lg btn-primary btn-lg-square back-to-top" href="#"><i class="bi bi-arrow-up"></i></a>
 
 
 <!-- JavaScript Libraries -->

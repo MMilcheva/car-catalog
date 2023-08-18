@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Component
 public class BrandMapper {
     private final BrandService brandService;
@@ -41,11 +42,12 @@ public class BrandMapper {
 
         return brandResponse;
     }
+
     public List<BrandResponse> convertToBrandResponses(List<Brand> brands) {
 
         List<BrandResponse> brandResponses = new ArrayList<>();
 
-      brands.forEach(brand->brandResponses.add(convertToBrandResponse(brand)));
+        brands.forEach(brand -> brandResponses.add(convertToBrandResponse(brand)));
         return brandResponses;
     }
 }

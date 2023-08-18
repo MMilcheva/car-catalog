@@ -1,7 +1,8 @@
 package com.example.carcatalog.services;
 
-import com.example.carcatalog.models.TransmissionType;
 import com.example.carcatalog.dto.TransmissionTypeFilterOptions;
+import com.example.carcatalog.exceptions.DuplicateEntityException;
+import com.example.carcatalog.models.TransmissionType;
 import com.example.carcatalog.models.User;
 import com.example.carcatalog.repositories.contracts.TransmissionTypeRepository;
 import com.example.carcatalog.services.contracts.TransmissionTypeService;
@@ -14,7 +15,7 @@ import java.util.Optional;
 @Service
 public class TransmissionTypeServiceImpl implements TransmissionTypeService {
 
-    private TransmissionTypeRepository transmissionTypeRepository;
+    private final TransmissionTypeRepository transmissionTypeRepository;
 
     @Autowired
     public TransmissionTypeServiceImpl(TransmissionTypeRepository transmissionTypeRepository) {
@@ -44,14 +45,27 @@ public class TransmissionTypeServiceImpl implements TransmissionTypeService {
 
     @Override
     public TransmissionType createTransmissionType(TransmissionType transmissionType) {
-        transmissionTypeRepository.create(transmissionType);
-        return transmissionType;
+
+        TransmissionType existingTransmissionType = transmissionTypeRepository.getTransmissionTypeByName(transmissionType.getTransmissionTypeName());
+        if (existingTransmissionType != null) {
+            throw new DuplicateEntityException("Transmission type", "name", existingTransmissionType.getTransmissionTypeName());
+        } else {
+            transmissionTypeRepository.create(transmissionType);
+            return transmissionType;
+        }
+
     }
 
     @Override
-    public TransmissionType updateTransmissionType(TransmissionType fuelType) {
-        transmissionTypeRepository.update(fuelType);
-        return fuelType;
+    public TransmissionType updateTransmissionType(TransmissionType transmissionType) {
+        TransmissionType existingTransmissionType = transmissionTypeRepository.getTransmissionTypeByName(transmissionType.getTransmissionTypeName());
+        if (existingTransmissionType != null) {
+            throw new DuplicateEntityException("Transmission type", "name", existingTransmissionType.getTransmissionTypeName());
+        } else {
+            transmissionTypeRepository.update(transmissionType);
+            return transmissionType;
+        }
+
     }
 
     @Override

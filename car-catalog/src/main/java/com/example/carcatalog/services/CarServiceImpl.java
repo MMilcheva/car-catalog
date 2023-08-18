@@ -46,7 +46,7 @@ public class CarServiceImpl implements CarService {
     public Car createCar(Car car) {
         List<Car> existingCars = carRepository.findCarByVin(car.getVin());
         if (!existingCars.isEmpty()) {
-            throw new DuplicateEntityException("Car", "vin", existingCars.get(0).getVin());
+            throw new DuplicateEntityException("Car", "VIN", existingCars.get(0).getVin());
         } else {
             carRepository.create(car);
             return car;
@@ -55,21 +55,19 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public Car updateCar(Car car) {
-        carRepository.update(car);
-        return car;
+
+        List<Car> existingCars = carRepository.findCarByVin(car.getVin());
+        if (!existingCars.isEmpty()) {
+            throw new DuplicateEntityException("Car", "VIN", existingCars.get(0).getVin());
+        } else {
+            carRepository.update(car);
+            return car;
+        }
     }
 
     @Override
     public List<Car> getAllCarsByUserId(Long userId) {
         return carRepository.getAllCarsByUserId(userId);
     }
-
-
-//    private void checkModifyPermissions(User user) {
-//        String str = "admin";
-//        if (!(user.getRole().getRoleName().equals(str))) {
-//            throw new AuthorizationException(MODIFY_MODEL_ERROR_MESSAGE);
-//        }
-//    }
 
 }

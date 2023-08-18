@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Transmission Type</title>
+    <title>Brand cannot be deleted</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -32,74 +32,38 @@
     <link href="/css/style.css" rel="stylesheet">
 </head>
 
-
 <body>
 
-<nav th:replace="/fragments/navbar :: navbar">Header fragment</nav>
-
-<!-- Spinner Start -->
+<!-- Spinner Start-->
 <div class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
      id="spinner">
     <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
         <span class="sr-only">Loading...</span>
     </div>
 </div>
-<!-- Spinner End -->
+<!-- Spinner End-->
 
-
-<!-- Page Header Start -->
+<!-- Page Header Start-->
 <div class="container-fluid page-header mb-5 p-0" style="background-image: url('/img/carousel-bg-2.jpg');">
     <div class="container-fluid page-header-inner py-5">
         <div class="container text-center">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">Transmission type</h1>
+            <h1 class="display-3 text-white mb-3 animated slideInDown">Welcome to Car catalog</h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb justify-content-center text-uppercase">
-                    <li class="breadcrumb-item"><a href="#" th:href="@{/}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#" th:href="@{/transmission-types}">TransmissionTypes</a></li>
-                    <li aria-current="page" class="breadcrumb-item text-white active">FuelType info</li>
+
+                    <li aria-current="page" class="breadcrumb-item text-white active">Access Denied</li>
                 </ol>
             </nav>
         </div>
     </div>
 </div>
-<!-- Page Header End -->
-<h4 style="margin-bottom: 50px;"><a href="#"
-                                    th:href="@{/transmission-types/new}"
-                                    th:if="${isAuthenticated}"
-                                    th:text="#{navigation.create-transmission-type}">Create a transmission type</a>
-</h4>
-
-<div class="container text-center">
-    <p class="display-6 text-black-70 mb-3 ">Transmission type</p>
-</div>
-
-
-<section class="py-5">
-    <div class="container px-4 px-lg-5 mt-5">
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th colspan="2">Transmission type details:</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <tr>
-                    <td>Transmission type name:</td>
-                    <td class="fw-bolder" th:text="${transmissionType.transmissionTypeName}">Transmission type name</td>
-                </tr>
-
-                </tbody>
-            </table>
-        </div>
-    </div>
-</section>
-
+<!-- Page Header End-->
 <ul>
-    <a href="#" th:href="@{__${transmissionTypeId}__/update}">Update</a>
-    <a href="#" th:href="@{__${transmissionTypeId}__/delete}">Delete</a>
+    <li><h3><a href="/" th:text="#{navigation.home}">Home</a></h3></li>
 </ul>
+<h2 th:text="#{error.no-delete}">Brand cannot be deleted.</h2>
+<h3 class="error" th:text="${error}">Error placeholder</h3>
+
 
 <footer th:replace="fragments/footer :: footer"></footer>
 
@@ -122,6 +86,5 @@
 
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>
-
 </body>
 </html>

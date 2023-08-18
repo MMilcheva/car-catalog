@@ -6,7 +6,7 @@ public class LoginDto {
 
     @NotEmpty(message = "Username should not be empty")
     private String username;
-    @NotEmpty (message = "Password should not be empty")
+    @NotEmpty(message = "Password should not be empty")
     private String password;
 
     public LoginDto() {

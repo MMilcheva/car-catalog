@@ -18,9 +18,9 @@
 <nav th:replace="/fragments/navbar :: navbar">Header fragment</nav>
 
 <!-- Spinner Start -->
-<div id="spinner"
-     class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+<div class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+     id="spinner">
+    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
         <span class="sr-only">Loading...</span>
     </div>
 </div>
@@ -34,7 +34,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb justify-content-center text-uppercase">
                     <li class="breadcrumb-item"><a href="#" th:href="@{/}">Home</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page">Transmission types</li>
+                    <li aria-current="page" class="breadcrumb-item text-white active">Transmission types</li>
                 </ol>
             </nav>
         </div>
@@ -43,34 +43,36 @@
 <!-- Page Header End -->
 
 
-<form action="#" th:action="@{/transmission-types}" th:object="${transmissionTypeFilterOptions}" method="get"
-      style="display: flex; flex-wrap: wrap; justify-content: center;">
-    <label th:text="#{transmission-type.filter.label}"
-           style="flex-basis: 100%; display: flex; justify-content: center; font-size: 1.7rem;">Transmission options</label>
+<form action="#" method="get" style="display: flex; flex-wrap: wrap; justify-content: center;" th:action="@{/transmission-types}"
+      th:object="${transmissionTypeFilterOptions}">
+    <label style="flex-basis: 100%; display: flex; justify-content: center; font-size: 1.7rem;"
+           th:text="#{transmission-type.filter.label}">Transmission
+        options</label>
 
-    <input type="text" placeholder="Transmission type name" th:field="*{transmissionTypeName}"
-           style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;"/>
+    <input placeholder="Transmission type name" style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;" th:field="*{transmissionTypeName}"
+           type="text"/>
 
-    <select th:field="*{sortBy}" style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;">
+    <select style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;" th:field="*{sortBy}">
         <option value="">Sort by</option>
         <option th:value="transmissionTypeName">Transmission type name</option>
     </select>
 
-    <select th:field="*{sortOrder}" style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;">
+    <select style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;" th:field="*{sortOrder}">
         <option value="">Sort order</option>
         <option th:value="asc">Ascending</option>
         <option th:value="desc">Descending</option>
     </select>
 
-    <input type="submit" value="Search" style="flex-basis: 100%; margin-bottom: 1rem;"/>
+    <input style="flex-basis: 100%; margin-bottom: 1rem;" type="submit" value="Search"/>
 </form>
 
 
 <!-- Section-->
 <ul>
-    <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
-                                        href="#"
-                                        th:href="@{transmission-types/new}" th:text="#{navigation.create-transmission-type}">Create a
+    <h4 style="margin-bottom: 50px;"><a href="#"
+                                        th:href="@{transmission-types/new}"
+                                        th:if="${isAuthenticated}"
+                                        th:text="#{navigation.create-transmission-type}">Create a
         transmission type</a>
     </h4>
 </ul>
@@ -101,7 +103,7 @@
 
 
 <!-- Back to Top -->
-<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+<a class="btn btn-lg btn-primary btn-lg-square back-to-top" href="#"><i class="bi bi-arrow-up"></i></a>
 
 
 <!-- JavaScript Libraries -->

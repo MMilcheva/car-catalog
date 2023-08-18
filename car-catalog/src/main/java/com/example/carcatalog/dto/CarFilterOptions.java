@@ -55,68 +55,68 @@ public class CarFilterOptions {
         this.userId = userId;
     }
 
-    public void setModelName(Optional<String> modelName) {
-        this.modelName = modelName;
-    }
-
-    public void setBrandName(Optional<String> brandName) {
-        this.brandName = brandName;
-    }
-
-    public void setFuelType(Optional<String> fuelType) {
-        this.fuelType = fuelType;
-    }
-
-    public void setTransmissionType(Optional<String> transmissionType) {
-        this.transmissionType = transmissionType;
-    }
-
-    public void setPrice(Optional<Double> price) {
-        this.price = price;
-    }
-
-    public void setRegistrationDate(Optional<LocalDate> registrationDate) {
-        this.registrationDate = registrationDate;
-    }
-
-    public void setSortBy(Optional<String> sortBy) {
-        this.sortBy = sortBy;
-    }
-
-    public void setSortOrder(Optional<String> sortOrder) {
-        this.sortOrder = sortOrder;
-    }
-
     public Optional<String> getModelName() {
         return modelName;
+    }
+
+    public void setModelName(Optional<String> modelName) {
+        this.modelName = modelName;
     }
 
     public Optional<String> getBrandName() {
         return brandName;
     }
 
+    public void setBrandName(Optional<String> brandName) {
+        this.brandName = brandName;
+    }
+
     public Optional<String> getFuelType() {
         return fuelType;
+    }
+
+    public void setFuelType(Optional<String> fuelType) {
+        this.fuelType = fuelType;
     }
 
     public Optional<String> getTransmissionType() {
         return transmissionType;
     }
 
+    public void setTransmissionType(Optional<String> transmissionType) {
+        this.transmissionType = transmissionType;
+    }
+
     public Optional<Double> getPrice() {
         return price;
+    }
+
+    public void setPrice(Optional<Double> price) {
+        this.price = price;
     }
 
     public Optional<LocalDate> getRegistrationDate() {
         return registrationDate;
     }
 
+    public void setRegistrationDate(Optional<LocalDate> registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
     public Optional<String> getSortBy() {
         return sortBy;
     }
 
+    public void setSortBy(Optional<String> sortBy) {
+        this.sortBy = sortBy;
+    }
+
     public Optional<String> getSortOrder() {
         return sortOrder;
+    }
+
+    public void setSortOrder(Optional<String> sortOrder) {
+        this.sortOrder = sortOrder;
     }
     //    public Optional<Long> getCarId() {
 //        return carId;

@@ -1,7 +1,7 @@
 package com.example.carcatalog.repositories;
 
-import com.example.carcatalog.models.Car;
 import com.example.carcatalog.dto.CarFilterOptions;
+import com.example.carcatalog.models.Car;
 import com.example.carcatalog.repositories.contracts.CarRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -42,6 +42,7 @@ public class CarRepositoryImpl extends AbstractCRUDRepository<Car> implements Ca
             return query.list();
         }
     }
+
     @Override
     public List<Car> getAllCars(Optional<String> search) {
         if (search.isEmpty()) {

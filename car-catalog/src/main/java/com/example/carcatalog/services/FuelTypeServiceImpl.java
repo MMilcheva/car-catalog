@@ -1,7 +1,8 @@
 package com.example.carcatalog.services;
 
-import com.example.carcatalog.models.FuelType;
 import com.example.carcatalog.dto.FuelTypeFilterOptions;
+import com.example.carcatalog.exceptions.DuplicateEntityException;
+import com.example.carcatalog.models.FuelType;
 import com.example.carcatalog.models.User;
 import com.example.carcatalog.repositories.contracts.FuelTypeRepository;
 import com.example.carcatalog.services.contracts.FuelTypeService;
@@ -40,20 +41,31 @@ public class FuelTypeServiceImpl implements FuelTypeService {
 
     @Override
     public void deleteFuelType(long fuelTypeId, User user) {
-//        checkModifyPermissions(user);
         fuelTypeRepository.delete(fuelTypeId);
     }
 
     @Override
     public FuelType createFuelType(FuelType fuelType) {
-        fuelTypeRepository.create(fuelType);
-        return fuelType;
+
+        FuelType existingFuelType = fuelTypeRepository.getFuelTypeByName(fuelType.getFuelTypeName());
+        if (existingFuelType != null) {
+            throw new DuplicateEntityException("Fuel type", "name", existingFuelType.getFuelTypeName());
+        } else {
+            fuelTypeRepository.create(fuelType);
+            return fuelType;
+        }
+
     }
 
     @Override
     public FuelType updateFuelType(FuelType fuelType) {
-        fuelTypeRepository.update(fuelType);
-        return fuelType;
+        FuelType existingFuelType = fuelTypeRepository.getFuelTypeByName(fuelType.getFuelTypeName());
+        if (existingFuelType != null) {
+            throw new DuplicateEntityException("Fuel type", "name", existingFuelType.getFuelTypeName());
+        } else {
+            fuelTypeRepository.update(fuelType);
+            return fuelType;
+        }
     }
 
     @Override
@@ -65,12 +77,4 @@ public class FuelTypeServiceImpl implements FuelTypeService {
     public FuelType getFuelTypeByName(String fuelTypeName) {
         return fuelTypeRepository.getFuelTypeByName(fuelTypeName);
     }
-
-//    @Override
-//    public FuelType getFuelTypeByPlate(String fuelType) {
-//        FuelType fuelType = fuelTypeRepository.getByField("fuelType", fuelType);
-//        return fuelType;
-//    }
-
-
 }

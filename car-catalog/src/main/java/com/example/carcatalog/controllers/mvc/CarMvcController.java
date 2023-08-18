@@ -20,7 +20,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -156,7 +155,6 @@ public class CarMvcController {
                                     @RequestParam(required = false) Long userIdForCarCreation) {
         try {
             User user = authenticationHelper.tryGetUserWithSession(session);
-//            checkAccessPermissions(user);
 
             Car car = new Car();
 
@@ -209,10 +207,6 @@ public class CarMvcController {
             model.addAttribute("error", e.getMessage());
             return "DuplicateEntityView";
         }
-
-
-
-
     }
 
 
@@ -244,7 +238,7 @@ public class CarMvcController {
             return "CarUpdateView";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
-            return "NotFoundView2";
+            return "NotFoundView";
         } catch (UnauthorizedOperationException e) {
             model.addAttribute("error", e.getMessage());
             return "AccessDeniedView";
@@ -271,11 +265,14 @@ public class CarMvcController {
             return "redirect:/cars/{carId}";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
-            return "NotFoundView2";
+            return "NotFoundView";
 
         } catch (UnauthorizedOperationException e) {
             model.addAttribute("error", e.getMessage());
             return "AccessDeniedView";
+        } catch (DuplicateEntityException e) {
+            model.addAttribute("error", e.getMessage());
+            return "DuplicateEntityView";
         }
     }
 
@@ -294,7 +291,7 @@ public class CarMvcController {
             return "redirect:/cars";
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
-            return "NotFoundView2";
+            return "NotFoundView";
         } catch (UnauthorizedOperationException e) {
             model.addAttribute("error", e.getMessage());
             return "AccessDeniedView";

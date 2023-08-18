@@ -63,4 +63,4 @@ public class ModelFilterOptions {
     public void setSortOrder(Optional<String> sortOrder) {
         this.sortOrder = sortOrder;
     }
- }
+}

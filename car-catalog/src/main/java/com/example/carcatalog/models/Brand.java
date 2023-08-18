@@ -32,13 +32,13 @@ public class Brand {
     }
 
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Brand brand = (Brand) o;
-        return Objects.equals(brandId, brand.brandId);}
+        return Objects.equals(brandId, brand.brandId);
+    }
 
     @Override
     public int hashCode() {
