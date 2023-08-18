@@ -22,6 +22,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/brands")
@@ -207,7 +209,7 @@ public class BrandMvcController {
     }
 
     @GetMapping("/{brandId}/delete")
-    public String delete(@PathVariable int brandId, Model model, HttpSession session) {
+    public String delete(@PathVariable Long brandId, Model model, HttpSession session) {
 
         User user;
         try {
@@ -216,8 +218,14 @@ public class BrandMvcController {
             return "redirect:/auth/login";
         }
         try {
-            brandService.deleteBrand(brandId, user);
-            return "redirect:/brands";
+            List<com.example.carcatalog.models.Model> modelsList = modelService.getAllModelsByBrandId(brandId);
+
+            if (modelsList.size() > 0) {
+                return "NoBrandDeletion";
+            } else {
+                brandService.deleteBrand(brandId, user);
+                return "redirect:/brands";
+            }
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
             return "NotFoundView2";

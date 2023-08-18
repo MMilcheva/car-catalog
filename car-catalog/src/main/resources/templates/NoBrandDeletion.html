@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
-  <title>Duplicate Entity</title>
+  <title>Brand cannot be deleted</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
@@ -50,8 +50,7 @@
       <h1 class="display-3 text-white mb-3 animated slideInDown">Welcome to Car catalog</h1>
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb justify-content-center text-uppercase">
-          <!--          <li class="breadcrumb-item"><a href="#" th:href="@{/}">Home</a></li>-->
-          <!--          <li class="breadcrumb-item"><a href="#">Vehicles</a></li>-->
+
           <li class="breadcrumb-item text-white active" aria-current="page">Access Denied</li>
         </ol>
       </nav>
@@ -59,11 +58,10 @@
   </div>
 </div>
 <!-- Page Header End-->
-
 <ul>
   <li><h3><a href="/" th:text="#{navigation.home}">Home</a></h3></li>
 </ul>
-<h2 th:text="#{error.duplicate-entity}">Duplicate Entity</h2>
+<h2 th:text="#{error.no-delete}">Brand cannot be deleted. Please delete the models first</h2>
 <h3 class="error" th:text="${error}">Error placeholder</h3>
 
 
