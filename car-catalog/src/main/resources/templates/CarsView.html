@@ -110,17 +110,17 @@
 
 </form>
 <ul>
-    <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
-                                        href="#"
-                                        th:href="@{/cars/new}" th:text="#{navigation.create-car}">Create a car</a>
-    </h4>
-    <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
+        <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
                                         href="#"
                                         th:href="@{/brands/new}" th:text="#{navigation.create-brand}">Create a brand</a>
     </h4>
     <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
                                         href="#"
                                         th:href="@{/models/new}" th:text="#{navigation.create-model}">Create a model</a>
+    </h4>
+    <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
+                                        href="#"
+                                        th:href="@{/cars/new}" th:text="#{navigation.create-car}">Create a car</a>
     </h4>
 </ul>
 <section class="py-5">
@@ -142,7 +142,8 @@
                 <tr th:each="car : ${cars}">
                     <td><a href="#" th:href="@{/cars/__${car.getCarId()}__}" th:text="${car.getModel().getModelName()}">Model
                         Name</a></td>
-                    <td th:text="${car.getModel().getBrand().getBrandName()}">Brand</td>
+                    <td><a href="#" th:href="@{/brands/__${car.getModel().getBrand().getBrandId()}__}" th:text="${car.getModel().getBrand().getBrandName()}">Brand</a></td>
+<!--                    <td th:text="${car.getModel().getBrand().getBrandName()}">Brand</td>-->
                     <td th:text="${car.getRegistrationDate()}">Registration date</td>
                     <td th:text="${car.getFuelType().getFuelTypeName()}">Fuel type</td>
                     <td th:text="${car.getTransmissionType().getTransmissionTypeName()}">Transmission type</td>

@@ -68,19 +68,15 @@
 
 <!--    <ul>-->
 
-    <!--        <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated && #strings.toString(session.admin) == 'admin'}"-->
-    <!--                                            href="#"-->
-    <!--                                            th:href="@{/visits/new(vehicleId=${vehicle.vehicleId})}"-->
-    <!--                                            th:text="#{navigation.create-visit}">Create a visit</a>-->
-    <!--        </h4>-->
-    <!--        <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated && #strings.toString(session.admin) == 'admin'}"-->
-    <!--                                            href="#"-->
-    <!--                                            th:href="@{/cars/new(userIdForCarCreation=${car.user.userId})}"-->
-    <!--                                            th:text="#{navigation.create-car}">Create a car</a>-->
-    <!--&lt;!&ndash;                                            th:href="@{/vehicles/new(userIdForVehicleCreation=${vehicle.user.userId})}"&ndash;&gt;-->
-    <!--&lt;!&ndash;                                            th:text="#{navigation.create-vehicle}">Create a vehicle</a>&ndash;&gt;-->
-    <!--        </h4>-->
-    <!--    </ul>-->
+
+<!--        <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"-->
+<!--                                            href="#"-->
+<!--                                            th:href="@{/cars/new(userIdForCarCreation=${car.user.userId})}"-->
+<!--                                            th:text="#{navigation.create-car}">Create a car</a>-->
+<!--            &lt;!&ndash;                                            th:href="@{/vehicles/new(userIdForVehicleCreation=${vehicle.user.userId})}"&ndash;&gt;-->
+<!--            &lt;!&ndash;                                            th:text="#{navigation.create-vehicle}">Create a vehicle</a>&ndash;&gt;-->
+<!--        </h4>-->
+<!--    </ul>-->
     <h4 style="margin-bottom: 50px;"><a th:if="${isAuthenticated}"
                                         href="#"
                                         th:href="@{/cars/new(userIdForCarCreation=${car.user.userId})}"
@@ -123,7 +119,12 @@
                 <td class="cell">
                     <a th:text="#{car.label.brand}">Brand:</a>
                 </td>
-                <td class="cell"><a th:text="${car.getModel().getBrand().getBrandName()}">Car Brand</a></td>
+                <td class="cell">
+                    <a th:text="${car.getModel().getBrand().getBrandName()}">Brand</a>
+                </td>
+<!--                <td><a href="#" th:href="@{/brands/__${model.getBrand().getBrandId()}__}"-->
+<!--                         th:text="${model.getBrand().getBrandName()}">Brand name</a></td>-->
+
             </tr>
 
             <tr>
@@ -150,7 +151,8 @@
                 <td class="cell">
                     <a th:text="#{car.label.transmission-type}">Transmission type:</a>
                 </td>
-                <td class="cell"><a th:text="${car.getTransmissionType().getTransmissionTypeName}">Transmission type</a></td>
+                <td class="cell"><a th:text="${car.getTransmissionType().getTransmissionTypeName}">Transmission type</a>
+                </td>
             </tr>
 
             <tr>

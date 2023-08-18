@@ -211,7 +211,6 @@ public class CarMvcController {
     @GetMapping("/{carId}/update")
     public String showUpdateCarPage(@PathVariable Long carId, Model model,
                                     @RequestParam(required = false) Optional<String> carSearch,
-                                    BindingResult bindingResult,
                                     HttpSession session) {
 
         User user;
@@ -220,9 +219,9 @@ public class CarMvcController {
         } catch (AuthenticationFailureException e) {
             return "redirect:/auth/login";
         }
-        if (bindingResult.hasErrors()) {
-            return "ModelUpdateView";
-        }
+//        if (bindingResult.hasErrors()) {
+//            return "ModelUpdateView";
+//        }
         try {
             Car car = carService.getCarById(carId);
 
