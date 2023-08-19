@@ -38,7 +38,7 @@ INSERT INTO `cars` (`car_id`, `vin_number`, `price`, `reg_date`, `remarks`, `mod
 /*!40000 ALTER TABLE `fuel_types` DISABLE KEYS */;
 INSERT INTO `fuel_types` (`fuel_type_id`, `fuel_name`) VALUES
 	(2, 'DIESEL'),
-	(4, 'Electric'),
+	(4, 'ELECTRIC'),
 	(3, 'GAS'),
 	(1, 'GASOLINE');
 /*!40000 ALTER TABLE `fuel_types` ENABLE KEYS */;
@@ -54,7 +54,7 @@ INSERT INTO `models` (`model_id`, `model_name`, `brands_brand_id`) VALUES
 	(8, '407', 5),
 	(9, 'M1', 2),
 	(10, 'X5', 2),
-	(11, 'G class', 4),
+	(11, 'G CLASS', 4),
 	(12, '458 ITALIA', 7),
 	(13, 'A6', 1);
 /*!40000 ALTER TABLE `models` ENABLE KEYS */;

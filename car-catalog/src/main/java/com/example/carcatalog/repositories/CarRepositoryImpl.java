@@ -50,9 +50,17 @@ public class CarRepositoryImpl extends AbstractCRUDRepository<Car> implements Ca
         }
         try (Session session = sessionFactory.openSession()) {
             Query<Car> query = session.createQuery(" from Car where " +
-                    "vin like :vin or user.username like :username ");
+                    "vin like :vin or " +
+//                    "brand.brandName like :brandName or " +
+                    "model.modelName like :modelName or " +
+                    "fuelType.fuelTypeName like :fuelTypeName or " +
+                    "transmissionType.transmissionTypeName like :transmissionTypeName ");
+
             query.setParameter("vin", "%" + search.get() + "%");
-            query.setParameter("username", "%" + search.get() + "%");
+//            query.setParameter("brandName", "%" + search.get() + "%");
+            query.setParameter("modelName", "%" + search.get() + "%");
+            query.setParameter("fuelTypeName", "%" + search.get() + "%");
+            query.setParameter("transmissionTypeName", "%" + search.get() + "%");
             return query.list();
         }
     }

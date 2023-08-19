@@ -5,10 +5,7 @@ import com.example.carcatalog.dto.ModelFilterDto;
 import com.example.carcatalog.dto.ModelFilterOptions;
 import com.example.carcatalog.dto.ModelResponse;
 import com.example.carcatalog.dto.ModelSaveRequest;
-import com.example.carcatalog.exceptions.AuthenticationFailureException;
-import com.example.carcatalog.exceptions.DuplicateEntityException;
-import com.example.carcatalog.exceptions.EntityNotFoundException;
-import com.example.carcatalog.exceptions.UnauthorizedOperationException;
+import com.example.carcatalog.exceptions.*;
 import com.example.carcatalog.helpers.AuthenticationHelper;
 import com.example.carcatalog.helpers.ModelMapper;
 import com.example.carcatalog.models.Brand;
@@ -222,6 +219,10 @@ public class ModelMvcController {
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
             return "NotFoundView";
+        } catch (ModelCannotBeDeletedException e) {
+            model.addAttribute("error", e.getMessage());
+            return "ModelCannotBeDeleted";
+
         } catch (UnauthorizedOperationException e) {
             model.addAttribute("error", e.getMessage());
             return "AccessDeniedView";

@@ -2,9 +2,12 @@ package com.example.carcatalog.services;
 
 import com.example.carcatalog.dto.TransmissionTypeFilterOptions;
 import com.example.carcatalog.exceptions.DuplicateEntityException;
-import com.example.carcatalog.models.FuelType;
+import com.example.carcatalog.exceptions.ModelCannotBeDeletedException;
+import com.example.carcatalog.exceptions.TransmissionTypeCannotBeDeletedException;
+import com.example.carcatalog.models.Car;
 import com.example.carcatalog.models.TransmissionType;
 import com.example.carcatalog.models.User;
+import com.example.carcatalog.repositories.contracts.CarRepository;
 import com.example.carcatalog.repositories.contracts.TransmissionTypeRepository;
 import com.example.carcatalog.services.contracts.TransmissionTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +20,12 @@ import java.util.Optional;
 public class TransmissionTypeServiceImpl implements TransmissionTypeService {
 
     private final TransmissionTypeRepository transmissionTypeRepository;
+    private final CarRepository carRepository;
 
     @Autowired
-    public TransmissionTypeServiceImpl(TransmissionTypeRepository transmissionTypeRepository) {
+    public TransmissionTypeServiceImpl(TransmissionTypeRepository transmissionTypeRepository, CarRepository carRepository) {
         this.transmissionTypeRepository = transmissionTypeRepository;
+        this.carRepository = carRepository;
     }
 
     @Override
@@ -38,15 +43,10 @@ public class TransmissionTypeServiceImpl implements TransmissionTypeService {
         return transmissionTypeRepository.getAllTransmissionTypesFilter(transmissionTypeFilterOptions);
     }
 
-    @Override
-    public void deleteTransmissionType(long transmissionTypeId, User user) {
-//        checkModifyPermissions(user);
-        transmissionTypeRepository.delete(transmissionTypeId);
-    }
 
     @Override
     public TransmissionType createTransmissionType(TransmissionType transmissionType) {
-
+        transmissionType.setTransmissionTypeName(transmissionType.getTransmissionTypeName().toUpperCase());
         List<TransmissionType> existingTransmissionTypes = transmissionTypeRepository.findByTransmissionTypeName(transmissionType.getTransmissionTypeName());
         if (!existingTransmissionTypes.isEmpty()) {
             throw new DuplicateEntityException("Transmission type", "name", existingTransmissionTypes.get(0).getTransmissionTypeName());
@@ -59,6 +59,7 @@ public class TransmissionTypeServiceImpl implements TransmissionTypeService {
 
     @Override
     public TransmissionType updateTransmissionType(TransmissionType transmissionType) {
+        transmissionType.setTransmissionTypeName(transmissionType.getTransmissionTypeName().toUpperCase());
         List<TransmissionType> existingTransmissionTypes = transmissionTypeRepository.findByTransmissionTypeName(transmissionType.getTransmissionTypeName());
         if (!existingTransmissionTypes.isEmpty()) {
             throw new DuplicateEntityException("Transmission type", "name", existingTransmissionTypes.get(0).getTransmissionTypeName());
@@ -70,13 +71,20 @@ public class TransmissionTypeServiceImpl implements TransmissionTypeService {
     }
 
     @Override
-    public List<TransmissionType> getAllTransmissionTypesByUserId(Long userId) {
-        return transmissionTypeRepository.getAllTransmissionTypesByUserId(userId);
+    public void deleteTransmissionType(long transmissionTypeId, User user) {
+
+        TransmissionType transmissionTypeIdToBeDeleted = transmissionTypeRepository.getById(transmissionTypeId);
+        List<Car> existingTransmissionTypes = carRepository.getAllCars(transmissionTypeIdToBeDeleted.getTransmissionTypeName().describeConstable());
+        if (!existingTransmissionTypes.isEmpty()) {
+            throw new TransmissionTypeCannotBeDeletedException("TransmissionType", "name", transmissionTypeRepository.getByField("transmissionTypeId", transmissionTypeId).getTransmissionTypeName());
+        } else {
+            transmissionTypeRepository.delete(transmissionTypeId);
+        }
     }
 
     @Override
     public TransmissionType getTransmissionTypeByName(String transmissionTypeName) {
-        return transmissionTypeRepository.getTransmissionTypeByName(transmissionTypeName);
+        return transmissionTypeRepository.getByField("transmissionTypeName", transmissionTypeName);
     }
 
 }

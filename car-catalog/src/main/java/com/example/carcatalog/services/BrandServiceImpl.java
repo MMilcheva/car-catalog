@@ -52,6 +52,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public Brand createBrand(Brand brand) {
+        brand.setBrandName(brand.getBrandName().toUpperCase());
         List<Brand> existingBrands = brandRepository.findByBrandName(brand.getBrandName());
         if (!existingBrands.isEmpty()) {
             throw new DuplicateEntityException("Brand", "name", existingBrands.get(0).getBrandName());
@@ -63,6 +64,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public Brand updateBrand(Brand brand) {
+        brand.setBrandName(brand.getBrandName().toUpperCase());
         List<Brand> existingBrands = brandRepository.findByBrandName(brand.getBrandName());
         if (!existingBrands.isEmpty()) {
             throw new DuplicateEntityException("Brand", "name", existingBrands.get(0).getBrandName());

@@ -214,7 +214,6 @@ public class BrandMvcController {
             return "redirect:/auth/login";
         }
         try {
-            List<com.example.carcatalog.models.Model> modelsList = modelService.getAllModelsByBrandId(brandId);
             brandService.deleteBrand(brandId, user);
             return "redirect:/brands";
         } catch (BrandCannotBeDeletedException e) {

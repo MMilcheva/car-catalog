@@ -21,7 +21,5 @@ public interface TransmissionTypeService {
 
     TransmissionType updateTransmissionType(TransmissionType transmissionType);
 
-    List<TransmissionType> getAllTransmissionTypesByUserId(Long userId);
-
     TransmissionType getTransmissionTypeByName(String transmissionTypeName);
 }

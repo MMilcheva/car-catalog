@@ -5,10 +5,7 @@ import com.example.carcatalog.dto.TransmissionTypeFilterDto;
 import com.example.carcatalog.dto.TransmissionTypeFilterOptions;
 import com.example.carcatalog.dto.TransmissionTypeResponse;
 import com.example.carcatalog.dto.TransmissionTypeSaveRequest;
-import com.example.carcatalog.exceptions.AuthenticationFailureException;
-import com.example.carcatalog.exceptions.DuplicateEntityException;
-import com.example.carcatalog.exceptions.EntityNotFoundException;
-import com.example.carcatalog.exceptions.UnauthorizedOperationException;
+import com.example.carcatalog.exceptions.*;
 import com.example.carcatalog.helpers.AuthenticationHelper;
 import com.example.carcatalog.helpers.TransmissionTypeMapper;
 import com.example.carcatalog.models.TransmissionType;
@@ -201,6 +198,9 @@ public class TransmissionTypeMvcController {
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
             return "NotFoundView";
+        } catch (TransmissionTypeCannotBeDeletedException e) {
+            model.addAttribute("error", e.getMessage());
+            return "TransmissionTypeCannotBeDeleted";
         } catch (UnauthorizedOperationException e) {
             model.addAttribute("error", e.getMessage());
             return "AccessDeniedView";

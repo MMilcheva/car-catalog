@@ -104,7 +104,7 @@ CREATE TABLE `fuel_types` (
 
 LOCK TABLES `fuel_types` WRITE;
 /*!40000 ALTER TABLE `fuel_types` DISABLE KEYS */;
-INSERT INTO `fuel_types` VALUES (2,'DIESEL'),(4,'Electric'),(3,'GAS'),(1,'GASOLINE');
+INSERT INTO `fuel_types` VALUES (2,'DIESEL'),(4,'ELECTRIC'),(3,'GAS'),(1,'GASOLINE');
 /*!40000 ALTER TABLE `fuel_types` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -133,7 +133,7 @@ CREATE TABLE `models` (
 
 LOCK TABLES `models` WRITE;
 /*!40000 ALTER TABLE `models` DISABLE KEYS */;
-INSERT INTO `models` VALUES (1,'Q7',1),(2,'X4',2),(3,'Q5',3),(6,'Civic',6),(7,'307',5),(8,'407',5),(9,'M1',2),(10,'X5',2),(11,'G class',4),(12,'458 ITALIA',7),(13,'A6',1);
+INSERT INTO `models` VALUES (1,'Q7',1),(2,'X4',2),(3,'Q5',3),(6,'CIVIC',6),(7,'307',5),(8,'407',5),(9,'M1',2),(10,'X5',2),(11,'G CLASS',4),(12,'458 ITALIA',7),(13,'A6',1);
 /*!40000 ALTER TABLE `models` ENABLE KEYS */;
 UNLOCK TABLES;
 

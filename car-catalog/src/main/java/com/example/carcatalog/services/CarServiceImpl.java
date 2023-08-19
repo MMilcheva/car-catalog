@@ -44,6 +44,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public Car createCar(Car car) {
+        car.setVin(car.getVin().toUpperCase());
         List<Car> existingCars = carRepository.findCarByVin(car.getVin());
         if (!existingCars.isEmpty()) {
             throw new DuplicateEntityException("Car", "VIN", existingCars.get(0).getVin());
@@ -55,7 +56,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public Car updateCar(Car car) {
-
+        car.setVin(car.getVin().toUpperCase());
         List<Car> existingCars = carRepository.findCarByVin(car.getVin());
         if (!existingCars.isEmpty()) {
             throw new DuplicateEntityException("Car", "VIN", existingCars.get(0).getVin());

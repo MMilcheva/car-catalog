@@ -26,7 +26,7 @@ public class TransmissionTypeRepositoryImpl extends AbstractCRUDRepository<Trans
     public List<TransmissionType> getAllTransmissionTypesByUserId(Long userId) {
 
         try (Session session = sessionFactory.openSession()) {
-            Query<TransmissionType> query = session.createQuery(" select ft from FuelType ft, User u where  ft.user.userId=:userId", TransmissionType.class);
+            Query<TransmissionType> query = session.createQuery(" select tt from TransmissionType tt, User u where  t.user.userId=:userId", TransmissionType.class);
             query.setParameter("userId", userId);
 
             return query.list();
@@ -39,9 +39,9 @@ public class TransmissionTypeRepositoryImpl extends AbstractCRUDRepository<Trans
             return getAll();
         }
         try (Session session = sessionFactory.openSession()) {
-            Query<TransmissionType> query = session.createQuery(" from FuelType where " +
-                    "fuelTypeName like :fuelTypeName ");
-            query.setParameter("fuelTypeName", "%" + search.get() + "%");
+            Query<TransmissionType> query = session.createQuery(" from TransmissionType where " +
+                    "transmissionTypeName like :transmissionTypeName ");
+            query.setParameter("transmissionTypeName", "%" + search.get() + "%");
             return query.list();
         }
     }

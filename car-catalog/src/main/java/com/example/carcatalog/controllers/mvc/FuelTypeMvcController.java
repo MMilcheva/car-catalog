@@ -4,10 +4,7 @@ import com.example.carcatalog.dto.FuelTypeFilterDto;
 import com.example.carcatalog.dto.FuelTypeFilterOptions;
 import com.example.carcatalog.dto.FuelTypeResponse;
 import com.example.carcatalog.dto.FuelTypeSaveRequest;
-import com.example.carcatalog.exceptions.AuthenticationFailureException;
-import com.example.carcatalog.exceptions.DuplicateEntityException;
-import com.example.carcatalog.exceptions.EntityNotFoundException;
-import com.example.carcatalog.exceptions.UnauthorizedOperationException;
+import com.example.carcatalog.exceptions.*;
 import com.example.carcatalog.helpers.AuthenticationHelper;
 import com.example.carcatalog.helpers.FuelTypeMapper;
 import com.example.carcatalog.models.FuelType;
@@ -201,6 +198,9 @@ public class FuelTypeMvcController {
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
             return "NotFoundView";
+        } catch (FuelTypeCannotBeDeletedException e) {
+            model.addAttribute("error", e.getMessage());
+            return "FuelTypeCannotBeDeleted";
         } catch (UnauthorizedOperationException e) {
             model.addAttribute("error", e.getMessage());
             return "AccessDeniedView";
