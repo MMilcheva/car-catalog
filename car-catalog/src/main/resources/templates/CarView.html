@@ -131,7 +131,7 @@
                 <td class="cell">
                     <a th:text="#{car.label.year}">Registration date:</a>
                 </td>
-                <td class="cell"><a th:text="${car.getRegistrationDate()}">Registration date</a></td>
+                <td class="cell"><a th:text="${#temporals.format(car.getRegistrationDate(), 'dd-MM-yyyy')}">Registration date</a></td>
             </tr>
 
             <tr>

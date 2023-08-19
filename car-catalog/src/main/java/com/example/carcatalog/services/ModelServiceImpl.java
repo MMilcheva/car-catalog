@@ -2,7 +2,6 @@ package com.example.carcatalog.services;
 
 import com.example.carcatalog.dto.ModelFilterOptions;
 import com.example.carcatalog.exceptions.DuplicateEntityException;
-import com.example.carcatalog.models.FuelType;
 import com.example.carcatalog.models.Model;
 import com.example.carcatalog.models.User;
 import com.example.carcatalog.repositories.contracts.BrandRepository;
@@ -32,11 +31,6 @@ public class ModelServiceImpl implements ModelService {
         return modelRepository.getById(modelToBeUpdatedId);
     }
 
-    @Override
-    public Model getModelByName(String name) {
-        return modelRepository.getModelByName(name);
-    }
-
 
     @Override
     public List<Model> getAllModels(Optional<String> search) {
@@ -54,6 +48,10 @@ public class ModelServiceImpl implements ModelService {
         return modelRepository.getAllModelsByBrandId(brandId);
     }
 
+    @Override
+    public Model getModelByName(String modelName) {
+        return modelRepository.getByName(modelName);
+    }
 
     @Override
     public void deleteModel(long modelId) {
@@ -62,9 +60,9 @@ public class ModelServiceImpl implements ModelService {
 
     @Override
     public Model createModel(Model model) {
-        Model existingModel = modelRepository.getModelByName(model.getModelName());
-        if (existingModel != null) {
-            throw new DuplicateEntityException("Model", "name", existingModel.getModelName());
+        List<Model> existingModels = modelRepository.findModelsByName(model.getModelName());
+        if (!existingModels.isEmpty()) {
+            throw new DuplicateEntityException("Model", "name", existingModels.get(0).getModelName());
         } else {
             modelRepository.create(model);
             return model;
@@ -74,15 +72,15 @@ public class ModelServiceImpl implements ModelService {
 
     @Override
     public Model updateModel(Model model) {
-        Model existingModel = modelRepository.getModelByName(model.getModelName());
-        if (existingModel != null) {
-            throw new DuplicateEntityException("Model", "name", existingModel.getModelName());
+        List<Model> existingModels = modelRepository.findModelsByName(model.getModelName());
+        if (!existingModels.isEmpty()) {
+            throw new DuplicateEntityException("Model", "name", existingModels.get(0).getModelName());
         } else {
             modelRepository.update(model);
             return model;
         }
-
     }
+
 
     @Override
     public void block(User user, Long modelId) {
@@ -90,16 +88,4 @@ public class ModelServiceImpl implements ModelService {
 
         modelRepository.block(model.getModelId());
     }
-
-//    getAllModels
-
-//    private void checkModifyPermissions(User user) {
-//        String str = "admin";
-//        //TODO to check why throw exc while equals is applied
-//        if (!(user.getRole().getRoleName().equals(str))) {
-//            throw new AuthorizationException(MODIFY_MODEL_ERROR_MESSAGE);
-//        }
-//    }
-
-
 }

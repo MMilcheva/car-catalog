@@ -20,5 +20,5 @@ public interface ModelRepository extends BaseCRUDRepository<Model> {
 
     void block(Long modelId);
 
-    Model getModelByName(String name);
+    List<Model> findModelsByName(String modelName);
 }

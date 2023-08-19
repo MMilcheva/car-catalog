@@ -18,4 +18,6 @@ public interface FuelTypeRepository extends BaseCRUDRepository<FuelType> {
     List<FuelType> getAllFuelTypesByUserId(Long userId);
 
     FuelType getFuelTypeByName(String fuelTypeName);
+
+    List<FuelType> findByFuelTypeName(String fuelTypeName);
 }

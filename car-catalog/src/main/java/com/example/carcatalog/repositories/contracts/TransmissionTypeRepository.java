@@ -18,4 +18,6 @@ public interface TransmissionTypeRepository extends BaseCRUDRepository<Transmiss
                                   Optional<String> sortOrder);
 
     TransmissionType getTransmissionTypeByName(String transmissionTypeName);
+
+    List<TransmissionType> findByTransmissionTypeName(String transmissionTypeName);
 }

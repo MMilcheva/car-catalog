@@ -48,7 +48,7 @@ public class Car {
 
     @NotNull(message = "Date of registration cannot be empty")
     @PastOrPresent(message = "Date of registration cannot be in the future")
-    @DateTimeFormat(pattern = "dd-MMM-yyyy")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(name = "reg_date")
     private LocalDate registrationDate;
 

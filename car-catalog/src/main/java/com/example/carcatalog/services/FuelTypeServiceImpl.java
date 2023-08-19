@@ -2,6 +2,7 @@ package com.example.carcatalog.services;
 
 import com.example.carcatalog.dto.FuelTypeFilterOptions;
 import com.example.carcatalog.exceptions.DuplicateEntityException;
+import com.example.carcatalog.models.Brand;
 import com.example.carcatalog.models.FuelType;
 import com.example.carcatalog.models.User;
 import com.example.carcatalog.repositories.contracts.FuelTypeRepository;
@@ -47,9 +48,9 @@ public class FuelTypeServiceImpl implements FuelTypeService {
     @Override
     public FuelType createFuelType(FuelType fuelType) {
 
-        FuelType existingFuelType = fuelTypeRepository.getFuelTypeByName(fuelType.getFuelTypeName());
-        if (existingFuelType != null) {
-            throw new DuplicateEntityException("Fuel type", "name", existingFuelType.getFuelTypeName());
+        List<FuelType> existingFuelTypes = fuelTypeRepository.findByFuelTypeName(fuelType.getFuelTypeName());
+        if (!existingFuelTypes.isEmpty()) {
+            throw new DuplicateEntityException("FuelType", "name", existingFuelTypes.get(0).getFuelTypeName());
         } else {
             fuelTypeRepository.create(fuelType);
             return fuelType;
@@ -59,9 +60,9 @@ public class FuelTypeServiceImpl implements FuelTypeService {
 
     @Override
     public FuelType updateFuelType(FuelType fuelType) {
-        FuelType existingFuelType = fuelTypeRepository.getFuelTypeByName(fuelType.getFuelTypeName());
-        if (existingFuelType != null) {
-            throw new DuplicateEntityException("Fuel type", "name", existingFuelType.getFuelTypeName());
+        List<FuelType> existingFuelTypes = fuelTypeRepository.findByFuelTypeName(fuelType.getFuelTypeName());
+        if (!existingFuelTypes.isEmpty()) {
+            throw new DuplicateEntityException("FuelType", "name", existingFuelTypes.get(0).getFuelTypeName());
         } else {
             fuelTypeRepository.update(fuelType);
             return fuelType;

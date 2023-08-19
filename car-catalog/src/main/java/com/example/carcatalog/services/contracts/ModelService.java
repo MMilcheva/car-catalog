@@ -10,8 +10,6 @@ import java.util.Optional;
 public interface ModelService {
     Model getModelById(Long modelToBeUpdatedId);
 
-    Model getModelByName(String name);
-
     List<Model> getAllModels(Optional<String> search);
 
     List<Model> getAllModelsFilter(ModelFilterOptions modelFilterOptions);
@@ -26,4 +24,6 @@ public interface ModelService {
     Model createModel(Model model);
 
     Model updateModel(Model model);
+
+    Model getModelByName(String modelName);
 }

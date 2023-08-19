@@ -48,11 +48,16 @@ public class FuelTypeRepositoryImpl extends AbstractCRUDRepository<FuelType> imp
 
     @Override
     public FuelType getFuelTypeByName(String fuelTypeName) {
+             return findByFuelTypeName(fuelTypeName).get(0);
+    }
+
+    @Override
+    public List<FuelType> findByFuelTypeName(String fuelTypeName) {
         try (Session session = sessionFactory.openSession()) {
             Query<FuelType> query = session.createQuery(" from FuelType where " +
                     "fuelTypeName = :fuelTypeName ");
             query.setParameter("fuelTypeName", fuelTypeName);
-            return query.list().get(0);
+            return query.list();
         }
     }
 

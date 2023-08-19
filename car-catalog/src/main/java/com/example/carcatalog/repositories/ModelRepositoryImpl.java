@@ -35,14 +35,16 @@ public class ModelRepositoryImpl extends AbstractCRUDRepository<Model> implement
     }
 
     @Override
-    public Model getModelByName(String name) {
+    public List<Model> findModelsByName(String modelName) {
         try (Session session = sessionFactory.openSession()) {
             Query<Model> model = session.createQuery(" from Model where " +
                     "modelName = :modelName ");
-            model.setParameter("modelName", name);
-            return model.list().get(0);
+            model.setParameter("modelName", modelName);
+            return model.list();
         }
     }
+
+
 
     @Override
     public List<Model> getAllModelsByBrandId(Long brandId) {
@@ -149,6 +151,5 @@ public class ModelRepositoryImpl extends AbstractCRUDRepository<Model> implement
             session.getTransaction().commit();
         }
     }
-
 
 }

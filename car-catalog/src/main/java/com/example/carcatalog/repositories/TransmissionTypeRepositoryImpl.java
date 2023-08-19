@@ -48,11 +48,16 @@ public class TransmissionTypeRepositoryImpl extends AbstractCRUDRepository<Trans
 
     @Override
     public TransmissionType getTransmissionTypeByName(String transmissionTypeName) {
+        return findByTransmissionTypeName(transmissionTypeName).get(0);
+    }
+
+    @Override
+    public List<TransmissionType> findByTransmissionTypeName(String transmissionTypeName) {
         try (Session session = sessionFactory.openSession()) {
             Query<TransmissionType> query = session.createQuery(" from TransmissionType where " +
                     "transmissionTypeName = :transmissionTypeName ");
             query.setParameter("transmissionTypeName", transmissionTypeName);
-            return query.list().get(0);
+            return query.list();
         }
     }
 

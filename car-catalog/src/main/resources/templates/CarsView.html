@@ -80,7 +80,7 @@
     <input placeholder="Brand name" style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;" th:field="*{brandName}"
            type="text"/>
 
-    <input placeholder="Registration date(yyyy-mm-dd)" style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;" th:field="*{registrationDate}"
+    <input style="flex-basis: 20%; margin-right: 1rem; margin-bottom: 1rem;" th:field="*{registrationDate}"
            type="date"/>
 
 
@@ -146,7 +146,7 @@
                     <td><a href="#" th:href="@{/brands/__${car.getModel().getBrand().getBrandId()}__}"
                            th:text="${car.getModel().getBrand().getBrandName()}">Brand</a></td>
                     <!--                    <td th:text="${car.getModel().getBrand().getBrandName()}">Brand</td>-->
-                    <td th:text="${car.getRegistrationDate()}">Registration date</td>
+                    <td th:text="${#temporals.format(car.getRegistrationDate(), 'dd-MM-yyyy')}">Registration date</td>
                     <td th:text="${car.getVin()}">VIN</td>
                     <td th:text="${car.getFuelType().getFuelTypeName()}">Fuel type</td>
                     <td th:text="${car.getTransmissionType().getTransmissionTypeName()}">Transmission type</td>

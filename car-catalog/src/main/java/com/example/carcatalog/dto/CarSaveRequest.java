@@ -34,7 +34,7 @@ public class CarSaveRequest {
     private String transmissionTypeName;
 
 
-    @DateTimeFormat(pattern = "dd-MMM-yyyy")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     @NotNull(message = "Date of registration cannot be empty")
     @PastOrPresent(message = "Date of registration cannot be in the future")
     private LocalDate registrationDate;
