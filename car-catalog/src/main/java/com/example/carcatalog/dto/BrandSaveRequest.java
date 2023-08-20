@@ -2,25 +2,18 @@ package com.example.carcatalog.dto;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class BrandSaveRequest {
 
 
     @Column(name = "brand_name")
-    @Size(min = 2, max = 32, message = "Brand name must be between 2 and 32 symbols")
+    @Size(min = 2, max = 45, message = "Brand name must be between 2 and 45 symbols")
     private String brandName;
-
-
-    public BrandSaveRequest() {
-    }
-
-    public String getBrandName() {
-        return brandName;
-    }
-
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
-    }
-
 
 }

@@ -3,7 +3,6 @@ package com.example.carcatalog.dto;
 import java.util.Optional;
 
 public class ModelFilterOptions {
-
     private Optional<Long> modelId;
     private Optional<String> modelName;
     private Optional<String> brandName;

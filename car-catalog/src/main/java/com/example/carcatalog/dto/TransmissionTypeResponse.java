@@ -1,18 +1,14 @@
 package com.example.carcatalog.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TransmissionTypeResponse {
 
     private String transmissionTypeName;
 
-
-    public TransmissionTypeResponse() {
-    }
-
-    public String getTransmissionTypeName() {
-        return transmissionTypeName;
-    }
-
-    public void setTransmissionTypeName(String transmissionTypeName) {
-        this.transmissionTypeName = transmissionTypeName;
-    }
 }

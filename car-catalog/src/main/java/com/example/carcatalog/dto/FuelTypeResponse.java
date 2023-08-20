@@ -1,18 +1,14 @@
 package com.example.carcatalog.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class FuelTypeResponse {
 
     private String fuelTypeName;
 
-
-    public FuelTypeResponse() {
-    }
-
-    public String getFuelTypeName() {
-        return fuelTypeName;
-    }
-
-    public void setFuelTypeName(String fuelTypeName) {
-        this.fuelTypeName = fuelTypeName;
-    }
 }

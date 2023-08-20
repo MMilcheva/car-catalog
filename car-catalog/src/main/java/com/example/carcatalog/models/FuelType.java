@@ -3,7 +3,13 @@ package com.example.carcatalog.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "fuel_types")
 public class FuelType {
@@ -15,26 +21,8 @@ public class FuelType {
 
 
     @NotNull(message = "Fuel type name cannot be empty")
-    @Size(min = 3, max = 15, message = "Fuel type name has to be between 3 and 15 chars.")
+    @Size(min = 3, max = 45, message = "Fuel type name has to be between 3 and 45 chars.")
     @Column(name = "fuel_name")
     private String fuelTypeName;
 
-    public FuelType() {
-    }
-
-    public Long getFuelTypeId() {
-        return fuelTypeId;
-    }
-
-    public void setFuelTypeId(Long fuelTypeId) {
-        this.fuelTypeId = fuelTypeId;
-    }
-
-    public String getFuelTypeName() {
-        return fuelTypeName;
-    }
-
-    public void setFuelTypeName(String fuelTypeName) {
-        this.fuelTypeName = fuelTypeName;
-    }
 }

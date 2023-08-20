@@ -1,7 +1,13 @@
 package com.example.carcatalog.dto;
 
 import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class LoginDto {
 
     @NotEmpty(message = "Username should not be empty")
@@ -9,22 +15,4 @@ public class LoginDto {
     @NotEmpty(message = "Password should not be empty")
     private String password;
 
-    public LoginDto() {
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
